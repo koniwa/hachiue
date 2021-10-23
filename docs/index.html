@@ -43,164 +43,162 @@
             </div>
 
             <div class="row" style="margin: 30px 0">
-                <div class="col-sm-12">
-                    <div class="col-sm-2">
-                        <button class="btn btn-primary btn-block" data-action="play">
-                            <span id="play">
-                                <span class="glyphicon glyphicon-play"></span>
-                                Play
-                            </span>
+                <div class="col">
+                    <button class="btn btn-primary btn-block" data-action="play">
+                        <span id="play">
+                            <span class="glyphicon glyphicon-play"></span>
+                            Play
+                        </span>
 
-                            <span id="pause" style="display: none">
-                                <span class="glyphicon glyphicon-pause"></span>
-                                Pause
-                            </span>
-                        </button>
+                        <span id="pause" style="display: none">
+                            <span class="glyphicon glyphicon-pause"></span>
+                            Pause
+                        </span>
+                    </button>
+                </div>
+
+                <div class="col">
+                    <div style="text-align: right;">
+                        <div class="glyphicon glyphicon-zoom-out" style="float: left;"></div>
+                        <div class="glyphicon glyphicon-zoom-in"></div>
                     </div>
+                    <input id="slider" data-action="zoom" type="range" min="1" max="200" value="0" style="width: 100%" />
+                </div>
 
-                    <div class="col-sm-2">
-                        <div style="text-align: right;">
-                            <div class="glyphicon glyphicon-zoom-out" style="float: left;"></div>
-                            <div class="glyphicon glyphicon-zoom-in"></div>
-                        </div>
-                        <input id="slider" data-action="zoom" type="range" min="1" max="200" value="0" style="width: 100%" />
+                <div class="col-sm-1">
+                    <div style="text-align: right;">
+                        <div class="glyphicon glyphicon-volume-off" style="float: left;"></div>
+                        <div class="glyphicon glyphicon-volume-up"></div>
                     </div>
-
-                    <div class="col-sm-1">
-                        <div style="text-align: right;">
-                            <div class="glyphicon glyphicon-volume-off" style="float: left;"></div>
-                            <div class="glyphicon glyphicon-volume-up"></div>
-                        </div>
-                        <input id="volume" type="range" min="0" max="1" value="1" step="0.1" />
-                    </div>
-
-
-
-                    <div class="col-sm-3">
-                        <button class="btn btn-danger" id="reset">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-
-                        <button class="btn btn-warning" id="vad">
-                            <span class="glyphicon glyphicon-asterisk"></span>
-                        </button>
-
-                        <button class="btn" id="config">
-                            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-                        </button>
-
-                        <button id="download_button" type="button" class="btn" aria-label="Left Align">
-                            <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
-                        </button>
-                    </div>
-
-
-                    <div class="col-sm-2">
-                        <div><span id="time-current">0.00</span> / <span id="time-total">0.00</span></div>
-                    </div>
-
-                    <div class="col-sm-2">
-                        <div id="drag-and-drop-area">
-                            <div>
-                                D&amp;D or Click
-                            </div>
-                        </div>
-
-                        <div id="file-select">
-                            <input type="file" class="hidden" accept="*" id="file-select-input">
-                            <button type="button" id="file-select-button">
-                                ファイル選択
-                            </button>
-                        </div>
-                    </div>
+                    <input id="volume" type="range" min="0" max="1" value="1" step="0.1" style="width: 100%" />
                 </div>
 
 
+
+                <div class="col-sm-3">
+                    <button class="btn btn-danger" id="reset">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+
+                    <button class="btn btn-warning" id="vad">
+                        <span class="glyphicon glyphicon-asterisk"></span>
+                    </button>
+
+                    <button class="btn" id="config">
+                        <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+                    </button>
+
+                    <button id="download_button" type="button" class="btn" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+
+                <div class="col">
+                    <div><span id="time-current">0.00</span> / <span id="time-total">0.00</span></div>
+                </div>
+
+                <div class="col">
+                    <div id="drag-and-drop-area">
+                        <div>
+                            D&amp;D or Click
+                        </div>
+                    </div>
+
+                    <div id="file-select">
+                        <input type="file" class="hidden" accept="*" id="file-select-input">
+                        <button type="button" id="file-select-button">
+                            ファイル選択
+                        </button>
+                    </div>
+                </div>
             </div>
+
 
         </div>
 
+    </div>
 
 
 
-        <form role="form" name="edit" style="opacity: 0; transition: opacity 300ms linear; margin: 30px 0;">
-            <div class="form-group row">
-                <div class="col-sm-4">
-                    <label for="vals__text_level0">text_level0</label>
-                    <textarea id="vals__text_level0" class="form-control" name="vals__text_level0"></textarea>
-                </div>
-                <div class="col-sm-4">
-                    <label for="vals__kana_level0">kana_level0</label>
-                    <textarea id="vals__kana_level0" class="form-control" name="vals__kana_level0"></textarea>
-                </div>
 
-                <div class="col-sm-1">
-                    <label for="start">Start</label>
-                    <input class="form-control" id="start" name="start" />
-                </div>
-
-                <div class="col-sm-1">
-                    <label for="end">End</label>
-                    <input class="form-control" id="end" name="end" />
-                </div>
+    <form role="form" name="edit" style="opacity: 0; transition: opacity 300ms linear; margin: 30px 0;">
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <label for="vals__text_level0">text_level0</label>
+                <textarea id="vals__text_level0" class="form-control" name="vals__text_level0"></textarea>
+            </div>
+            <div class="col-sm-4">
+                <label for="vals__kana_level0">kana_level0</label>
+                <textarea id="vals__kana_level0" class="form-control" name="vals__kana_level0"></textarea>
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-4">
-                    <label for="vals__text_level1">text_level1</label>
-                    <textarea id="vals__text_level1" class="form-control" name="vals__text_level1"></textarea>
-                </div>
+            <div class="col-sm-1">
+                <label for="start">Start</label>
+                <input class="form-control" id="start" name="start" />
             </div>
 
-            <div class="form-group row">
-                <div class="col-sm-4">
-                    <label for="vals__text_level2">text_level2</label>
-                    <textarea id="vals__text_level2" class="form-control" name="vals__text_level2"></textarea>
-                </div>
-
-                <div class="col-sm-4">
-                    <label for="vals__kana_level2">kana_level2</label>
-                    <textarea id="vals__kana_level2" class="form-control" name="vals__kana_level2"></textarea>
-                </div>
+            <div class="col-sm-1">
+                <label for="end">End</label>
+                <input class="form-control" id="end" name="end" />
             </div>
+        </div>
 
-
-            <div class="form-group row">
-                <div class="col-sm-4">
-                </div>
-                <div class="col-sm-4">
-                    <label for="vals__kana_level3">kana_level3</label>
-                    <textarea id="vals__kana_level3" class="form-control" name="vals__kana_level3"></textarea>
-                </div>
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <label for="vals__text_level1">text_level1</label>
+                <textarea id="vals__text_level1" class="form-control" name="vals__text_level1"></textarea>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label for="vals__memo">memo</label>
-                <textarea id="vals__memo" class="form-control" name="vals__memo" rows="5"></textarea>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-sm-4">
-                </div>
-                <div class="col-sm-2">
-                    <button type="submit" class="btn btn-success btn-block">Save</button>
-                </div>
-                <div class="col-sm-2">
-                    <button type="button" class="btn btn-danger btn-block" data-action="delete-region">Delete</button>
-                </div>
-            </div>
-        </form>
-
-        <div class="footer row">
-            <div class="col-sm-8">
+        <div class="form-group row">
+            <div class="col-sm-4">
+                <label for="vals__text_level2">text_level2</label>
+                <textarea id="vals__text_level2" class="form-control" name="vals__text_level2"></textarea>
             </div>
 
             <div class="col-sm-4">
-                <a target="_blank" rel="noreferrer" href="https://github.com/koniwa/hachiue">Hachiue</a>
-                by
-                <a target="_blank" rel="noreferrer" href="https://github.com/koniwa">Koniwa Project</a>
+                <label for="vals__kana_level2">kana_level2</label>
+                <textarea id="vals__kana_level2" class="form-control" name="vals__kana_level2"></textarea>
             </div>
         </div>
+
+
+        <div class="form-group row">
+            <div class="col-sm-4">
+            </div>
+            <div class="col-sm-4">
+                <label for="vals__kana_level3">kana_level3</label>
+                <textarea id="vals__kana_level3" class="form-control" name="vals__kana_level3"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="vals__memo">memo</label>
+            <textarea id="vals__memo" class="form-control" name="vals__memo" rows="5"></textarea>
+        </div>
+
+        <div class="form-group row">
+            <div class="col">
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-success btn-block">Save</button>
+            </div>
+            <div class="col">
+                <button type="button" class="btn btn-danger btn-block" data-action="delete-region">Delete</button>
+            </div>
+    </form>
+
+    <div class="footer row">
+        <div class="col">
+        </div>
+
+        <div class="col">
+            <a target="_blank" rel="noreferrer" href="https://github.com/koniwa/hachiue">Hachiue</a>
+            by
+            <a target="_blank" rel="noreferrer" href="https://github.com/koniwa">Koniwa Project</a>
+        </div>
+    </div>
     </div>
 </body>
 
