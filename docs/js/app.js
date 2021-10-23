@@ -372,7 +372,7 @@ function save_a_region(region) {
       let v = el.value;
       if (key != 'vals__memo') {
         // Clean blanks and line breaks
-        v = v.replace(/^\s+|\s+$/g, '').replace('\n', '');
+        v = v.replace(/^\s+|\s+$|\n/g, '');
       }
       data[key.substr('vals__'.length)] = v;
     }
