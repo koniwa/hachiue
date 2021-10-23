@@ -3,6 +3,8 @@ var wavesurfer; // eslint-disable-line no-var
 /* global localforage */
 
 const key_annotation = 'key_annotation_0';
+const item_name_annotation = 'annotation';
+const item_name_meta = 'meta';
 const key_audio = 'key_audio_0';
 
 
@@ -91,7 +93,8 @@ function init_wavesurfer() {
 
 
     localforage.getItem(key_annotation, (err, data) => {
-      loadRegions(data);
+      console.log(data[item_name_meta]); // TODO meta
+      loadRegions(data[item_name_annotation]);
     });
 
     localforage.getItem(key_audio, (err, data) => {
@@ -323,10 +326,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function saveRegions() {
-
-  localforage.setItem(
-    key_annotation,
-    Object.keys(wavesurfer.regions.list).map(function(id) {
+  const mydata = {
+    item_name_meta: {},
+    item_name_annotation: Object.keys(wavesurfer.regions.list).map(function(id) {
       const region = wavesurfer.regions.list[id];
       return {
         start: region.start,
@@ -334,6 +336,9 @@ function saveRegions() {
         data: region.data
       };
     }),
+  };
+
+  localforage.setItem(key_annotation, mydata,
     () => { // on success
     }).catch((err) => {
     alert(`Error on save: ${err}`);
