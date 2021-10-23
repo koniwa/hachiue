@@ -44,7 +44,7 @@ function load_files(files) {
         reader.onload = () => {
           try {
             const d = JSON.parse(reader.result);
-            loadRegions(d);
+            loadRegions(d[item_name_annotation]);
           } catch (error) {
             alert(error);
           }
@@ -238,7 +238,6 @@ document.addEventListener('DOMContentLoaded', function() {
       const duration = wavesurfer.getDuration();
       const unit_second = 0.01;
       const num_subranges = parseInt(duration / unit_second);
-      console.log(num_subranges);
       loadRegions(
         extractRegions(
           wavesurfer.backend.getPeaks(num_subranges),
@@ -246,6 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
           unit_second,
         )
       );
+      saveRegions();
     });
   }
 
@@ -306,7 +306,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     localforage.getItem(key_annotation, (err, data) => {
-      data.sort((a, b) => {
+      data[item_name_annotation].sort((a, b) => {
         if (a.start < b.start) {
           return -1;
         }
@@ -329,17 +329,16 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function saveRegions() {
-  const mydata = {
-    item_name_meta: {},
-    item_name_annotation: Object.keys(wavesurfer.regions.list).map(function(id) {
-      const region = wavesurfer.regions.list[id];
-      return {
-        start: region.start,
-        end: region.end,
-        data: region.data
-      };
-    }),
-  };
+  const mydata = {}
+  mydata[item_name_meta] = {};
+  mydata[item_name_annotation] = Object.keys(wavesurfer.regions.list).map(function(id) {
+    const region = wavesurfer.regions.list[id];
+    return {
+      start: region.start,
+      end: region.end,
+      data: region.data
+    };
+  });
 
   localforage.setItem(key_annotation, mydata,
     () => { // on success
