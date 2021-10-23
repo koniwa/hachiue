@@ -1,0 +1,6 @@
+version: 2
+updates:
+  - package-ecosystem: "v6"
+    directory: "/"
+    schedule:
+      interval: "weekly"
