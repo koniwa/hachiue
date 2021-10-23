@@ -329,7 +329,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function saveRegions() {
-  const mydata = {}
+  const mydata = {};
   mydata[item_name_meta] = {};
   mydata[item_name_annotation] = Object.keys(wavesurfer.regions.list).map(function(id) {
     const region = wavesurfer.regions.list[id];
