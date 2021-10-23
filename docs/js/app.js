@@ -93,6 +93,9 @@ function init_wavesurfer() {
 
 
     localforage.getItem(key_annotation, (err, data) => {
+      if (data === null) {
+        return;
+      }
       console.log(data[item_name_meta]); // TODO meta
       loadRegions(data[item_name_annotation]);
     });
@@ -346,9 +349,6 @@ function saveRegions() {
 }
 
 function loadRegions(regions) {
-  if (regions === null) {
-    return;
-  }
   regions.forEach(function(region) {
     region.color = randomColor(0.1);
     wavesurfer.addRegion(region);
