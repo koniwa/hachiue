@@ -1,0 +1,25 @@
+{
+  "name": "hachiue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "eslint docs/js/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koniwa/hachiue.git"
+  },
+  "author": "",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/koniwa/hachiue/issues"
+  },
+  "homepage": "https://github.com/koniwa/hachiue",
+  "dependencies": {
+    "eslint": "^8.1.0"
+  }
+}
