@@ -1,11 +1,13 @@
 var wavesurfer; // eslint-disable-line no-var
 /* global WaveSurfer */
 /* global localforage */
+/* global bootstrap */
 
+const key_audio = 'key_audio_0';
 const key_annotation = 'key_annotation_0';
+const key_meta = 'key_meta_0';
 const item_name_annotation = 'annotation';
 const item_name_meta = 'meta';
-const key_audio = 'key_audio_0';
 
 
 
@@ -45,6 +47,14 @@ function load_files(files) {
           try {
             const d = JSON.parse(reader.result);
             loadRegions(d[item_name_annotation]);
+
+            //meta
+            localforage.setItem(key_meta, d[item_name_meta],
+              () => { // on success
+              }).catch((err) => {
+              alert(`Error on save: ${err}`);
+            });
+
           } catch (error) {
             alert(error);
           }
@@ -92,16 +102,15 @@ function init_wavesurfer() {
     });
 
 
-    localforage.getItem(key_annotation, (err, data) => {
-      if (data === null) {
+    localforage.getItem(key_annotation, (err, data_annotation) => {
+      if (data_annotation === null) {
         return;
       }
-      console.log(data[item_name_meta]); // TODO meta
-      loadRegions(data[item_name_annotation]);
+      loadRegions(data_annotation);
     });
 
-    localforage.getItem(key_audio, (err, data) => {
-      load_audio(data);
+    localforage.getItem(key_audio, (err, data_audio) => {
+      load_audio(data_audio);
     });
   }
 
@@ -249,6 +258,42 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
+
+  { // meta editor
+    const modal = document.querySelector('#edit_meta');
+    const mc = document.querySelector('#meta-content');
+    modal.addEventListener('click', () => {
+      localforage.getItem(key_meta, (err, data) => {
+        if (data === null) {
+          mc.value = '{}';
+          return;
+        }
+        mc.value = JSON.stringify(data, undefined, 4);
+      });
+    });
+
+
+    const modal_save = document.querySelector('#metaModal_save');
+    modal_save.addEventListener('click', () => {
+      try {
+        JSON.parse(mc.value);
+      } catch (e) {
+        alert(e);
+        return;
+      }
+
+      localforage.setItem(key_meta, JSON.parse(mc.value),
+        () => { // on success
+          const modal = document.getElementById('metaModal');
+          bootstrap.Modal.getInstance(modal).hide();
+        }).catch((err) => {
+        alert(`Error on save: ${err}`);
+      });
+
+
+    });
+  }
+
   {
     // Disable D&D
     window.addEventListener('dragover', function(ev) {
@@ -305,23 +350,34 @@ document.addEventListener('DOMContentLoaded', function() {
     const name = `annotations_${date_str}.json`;
 
 
-    localforage.getItem(key_annotation, (err, data) => {
-      data[item_name_annotation].sort((a, b) => {
+    localforage.getItem(key_annotation, (err, data_annotation) => {
+      data_annotation.sort((a, b) => {
         if (a.start < b.start) {
           return -1;
         }
         return 1;
       });
-      const out = JSON.stringify(data, undefined, 4) + '\n';
-      const url = URL.createObjectURL(new Blob([out], {
-        type: 'application/json'
-      }));
-      const a = document.createElement('a');
-      document.body.appendChild(a);
-      a.download = name;
-      a.href = url;
-      a.click();
-      a.remove();
+
+      localforage.getItem(key_meta, (err, data_meta) => {
+        if (data_meta === null) {
+          data_meta = {};
+        }
+
+        const out_data = {};
+        out_data[item_name_annotation] = data_annotation;
+        out_data[item_name_meta] = data_meta;
+
+        const out = JSON.stringify(out_data, undefined, 4) + '\n';
+        const url = URL.createObjectURL(new Blob([out], {
+          type: 'application/json'
+        }));
+        const a = document.createElement('a');
+        document.body.appendChild(a);
+        a.download = name;
+        a.href = url;
+        a.click();
+        a.remove();
+      });
     });
   });
 
@@ -329,9 +385,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function saveRegions() {
-  const mydata = {};
-  mydata[item_name_meta] = {};
-  mydata[item_name_annotation] = Object.keys(wavesurfer.regions.list).map(function(id) {
+  const mydata = Object.keys(wavesurfer.regions.list).map(function(id) {
     const region = wavesurfer.regions.list[id];
     return {
       start: region.start,

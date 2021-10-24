@@ -7,7 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
-    "test:eslint": "find docs/js -type f | grep -v wavesurfer | grep -v localforage.min.js | xargs eslint",
+    "test:eslint": "find docs/js -type f | grep -v wavesurfer | grep -v bootstrap| grep -v localforage.min.js | xargs eslint",
     "test:html": "htmlhint docs",
     "test:md": "npx markdownlint *.md",
     "test:css": "find docs/css -maxdepth 1 -mindepth 1 -type f | grep -v bootstrap | xargs npx stylelint",
