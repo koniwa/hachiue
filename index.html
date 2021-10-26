@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Hachiue</title>
+
+    <link href="data:image/gif;" rel="icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="stylesheet" href="3rd/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="3rd/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/app.css" />
+
+    <script src="3rd/bootstrap/js/bootstrap.min.js"></script>
+    <script src="3rd/wavesurfer.js/wavesurfer.min.js"></script>
+    <script src="3rd/wavesurfer.js/plugin/wavesurfer.timeline.min.js"></script>
+    <script src="3rd/wavesurfer.js/plugin/wavesurfer.regions.min.js"></script>
+    <script src="3rd/wavesurfer.js/plugin/wavesurfer.minimap.min.js"></script>
+    <script src="3rd/localforage/localforage.min.js"></script>
+
+    <script src="js/trivia.js"></script>
+    <script src="js/app.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebApplication">
+    <div class="container">
+        <div class="header">
+            <h1 id="title" itemprop="name">Hachiue</h1>
+        </div>
+
+        <div id="demo">
+
+            <div class="row">
+                <div id="subtitle" class="text-info col">&nbsp;</div>
+                <div class="col">
+                    <p style="text-align:right;">
+                        <span id="time-current">0.00</span> / <span id="time-total">0.00</span>
+                    </p>
+                </div>
+            </div>
+
+
+            <div id="wave-timeline"></div>
+            <div id="waveform"></div>
+
+            <div class="row" style="margin: 30px 0">
+                <div class="col-auto">
+                    <button class="btn btn-primary btn-block" data-action="play">
+                        <span id="play">
+                            <span class="bi bi-play"></span>
+                            Play
+                        </span>
+
+                        <span id="pause" style="display: none">
+                            <span class="bi bi-pause"></span>
+                            Pause
+                        </span>
+                    </button>
+                </div>
+
+                <div class="col-auto">
+                    <div style="text-align: right;">
+                        <div class="bi bi-zoom-out" style="float: left;"></div>
+                        <div class="bi bi-zoom-in"></div>
+                    </div>
+                    <input id="slider" data-action="zoom" type="range" min="1" max="200" value="0" style="width: 100%" />
+                </div>
+
+                <div class="col-auto">
+                    <div style="text-align: right;">
+                        <div class="bi bi-volume-off" style="float: left;"></div>
+                        <div class="bi bi-volume-up"></div>
+                    </div>
+                    <input id="volume" type="range" min="0" max="1" value="1" step="0.1" style="width: 100%" />
+                </div>
+
+
+
+                <div class="col-auto">
+                    <button class="btn btn-danger" id="reset">
+                        <span class="bi bi-trash"></span>
+                    </button>
+
+                    <button class="btn btn-warning" id="vad">
+                        <span class="bi bi-pencil-square"></span>
+                    </button>
+
+                    <button class="btn btn-light" id="edit_meta" data-bs-toggle="modal" data-bs-target="#metaModal">
+                        <span class="bi bi-card-heading" aria-hidden="true"></span>
+                    </button>
+
+                    <button class="btn btn-light" id="config" data-bs-toggle="modal" data-bs-target="#configModal">
+                        <span class="bi bi-gear" aria-hidden="true"></span>
+                    </button>
+
+                    <button class="btn btn-light" id="download_button">
+                        <span class="bi bi-download" aria-hidden="true"></span>
+                    </button>
+                </div>
+
+                <div class="col-md">
+                    <div id="drag-and-drop-area">
+                        <div>
+                            D&amp;D or Click
+                        </div>
+                    </div>
+
+                    <div id="file-select">
+                        <input type="file" class="hidden" accept="*" id="file-select-input">
+                        <button type="button" id="file-select-button">
+                            ファイル選択
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+
+
+        <form role="form" name="edit" style="opacity: 0; transition: opacity 300ms linear; margin: 30px 0;">
+            <div class="form-group row">
+                <div class="col">
+                    <label for="vals__text_level0">text_level0</label>
+                    <textarea id="vals__text_level0" class="form-control" name="vals__text_level0"></textarea>
+                </div>
+                <div class="col">
+                    <label for="vals__kana_level0">kana_level0</label>
+                    <textarea id="vals__kana_level0" class="form-control" name="vals__kana_level0"></textarea>
+                </div>
+
+                <div class="col">
+                    <label for="start">Start</label>
+                    <input class="form-control" id="start" name="start" />
+                </div>
+
+                <div class="col">
+                    <label for="end">End</label>
+                    <input class="form-control" id="end" name="end" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label for="vals__text_level1">text_level1</label>
+                    <textarea id="vals__text_level1" class="form-control" name="vals__text_level1"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                    <label for="vals__text_level2">text_level2</label>
+                    <textarea id="vals__text_level2" class="form-control" name="vals__text_level2"></textarea>
+                </div>
+
+                <div class="col">
+                    <label for="vals__kana_level2">kana_level2</label>
+                    <textarea id="vals__kana_level2" class="form-control" name="vals__kana_level2"></textarea>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-md">
+                </div>
+                <div class="col">
+                    <label for="vals__kana_level3">kana_level3</label>
+                    <textarea id="vals__kana_level3" class="form-control" name="vals__kana_level3"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="vals__memo">memo</label>
+                <textarea id="vals__memo" class="form-control" name="vals__memo" rows="5"></textarea>
+            </div>
+
+            <div class="form-group row">
+                <div class="col">
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-success btn-block">Save</button>
+                </div>
+                <div class="col">
+                    <button type="button" class="btn btn-danger btn-block" data-action="delete-region">Delete</button>
+                </div>
+            </div>
+        </form>
+
+
+
+        <div class="modal fade" id="metaModal" tabindex="-1" data-bs-backdrop="static">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Meta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <label for="meta-content" class="col-form-label">Meta:</label>
+                            <textarea class="form-control" id="meta-content"></textarea>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="metaModal_save">Save</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="modal fade" id="configModal" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Setting</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
+                    </div>
+                    <div class="modal-body">
+                        Not Implemented yet
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+    <div class="footer">
+        <div class="container" style="text-align:right;">
+            <a target="_blank" rel="noreferrer" href="https://github.com/koniwa/hachiue">Hachiue</a>
+            by
+            <a target="_blank" rel="noreferrer" href="https://github.com/koniwa">Koniwa Project</a>
+        </div>
+    </div>
+</body>
+
+</html>
