@@ -11,7 +11,10 @@
     "test:html": "htmlhint docs",
     "test:md": "npx markdownlint *.md",
     "test:css": "find docs/css -maxdepth 1 -mindepth 1 -type f | grep -v bootstrap | xargs npx stylelint",
-    "test": "run-s test:eslint test:html test:md test:css"
+    "format:html": "find docs -name '*.html'| xargs -I {} bash -c 'npx html-beautify -q --end-with-newline {} | diff -q - {} '",
+    "format:css": "find docs/css -maxdepth 1 -mindepth 1 -type f | grep -v bootstrap | xargs -I {} bash -c 'npx css-beautify -q --end-with-newline {} | diff -q - {} '",
+    "format:js": "find docs/js -type f | grep -v wavesurfer | grep -v bootstrap| grep -v localforage.min.js | xargs esformatter --diff",
+    "test": "run-s test:eslint test:html test:md test:css format:html format:css format:js"
   },
   "repository": {
     "type": "git",
@@ -25,8 +28,10 @@
   "homepage": "https://github.com/koniwa/hachiue",
   "dependencies": {},
   "devDependencies": {
+    "esformatter": "^0.11.3",
     "eslint": "^8.1.0",
     "htmlhint": "^0.15.2",
+    "js-beautify": "^1.14.0",
     "markdownlint-cli": "^0.29.0",
     "npm-run-all": "^4.1.5",
     "stylelint": "^14.0.0",

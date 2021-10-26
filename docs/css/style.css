@@ -32,7 +32,7 @@ body {
     border-top: 1px solid #e5e5e5;
 }
 
-.container-narrow > hr {
+.container-narrow>hr {
     margin: 30px 0;
 }
 
@@ -41,12 +41,13 @@ body {
     margin: 40px 0;
 }
 
-.marketing p + h4 {
+.marketing p+h4 {
     margin-top: 28px;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
+
     /* Remove the padding we set earlier */
     .header,
     .marketing,
@@ -54,6 +55,7 @@ body {
         padding-left: 0;
         padding-right: 0;
     }
+
     /* Space out the masthead */
     .header {
         margin-bottom: 30px;
