@@ -3,18 +3,17 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "directories": {
-    "doc": "docs"
-  },
+  "directories": {},
   "scripts": {
-    "test:eslint": "find docs/js -type f | grep -v wavesurfer | grep -v bootstrap| grep -v localforage.min.js | xargs eslint",
-    "test:html": "htmlhint docs",
+    "test:eslint": "find src/js -type f | grep -v wavesurfer | grep -v bootstrap| grep -v localforage.min.js | xargs eslint",
+    "test:html": "htmlhint src",
     "test:md": "npx markdownlint *.md",
-    "test:css": "find docs/css -maxdepth 1 -mindepth 1 -type f | grep -v bootstrap | xargs npx stylelint",
-    "format:html": "find docs -name '*.html'| xargs -I {} bash -c 'npx html-beautify -q --end-with-newline {} | diff -q - {} '",
-    "format:css": "find docs/css -maxdepth 1 -mindepth 1 -type f | grep -v bootstrap | xargs -I {} bash -c 'npx css-beautify -q --end-with-newline {} | diff -q - {} '",
-    "format:js": "find docs/js -type f | grep -v wavesurfer | grep -v bootstrap| grep -v localforage.min.js | xargs esformatter --diff",
-    "test": "run-s test:eslint test:html test:md test:css format:html format:css format:js"
+    "test:css": "find src/css -maxdepth 1 -mindepth 1 -type f | grep -v bootstrap | xargs npx stylelint",
+    "format:html": "find src -name '*.html'| xargs -I {} bash -c 'npx html-beautify -q --end-with-newline {} | diff -q - {} '",
+    "format:css": "find src/css -maxdepth 1 -mindepth 1 -type f | grep -v bootstrap | xargs -I {} bash -c 'npx css-beautify -q --end-with-newline {} | diff -q - {} '",
+    "format:js": "find src/js -type f | grep -v wavesurfer | grep -v bootstrap| grep -v localforage.min.js | xargs esformatter --diff",
+    "test": "run-s test:eslint test:html test:md test:css format:html format:css format:js",
+    "build": "bash sync_modules.sh"
   },
   "repository": {
     "type": "git",
@@ -26,7 +25,12 @@
     "url": "https://github.com/koniwa/hachiue/issues"
   },
   "homepage": "https://github.com/koniwa/hachiue",
-  "dependencies": {},
+  "dependencies": {
+    "bootstrap": "^5.1.3",
+    "bootstrap-icons": "^1.6.1",
+    "localforage": "^1.10.0",
+    "wavesurfer.js": "^5.2.0"
+  },
   "devDependencies": {
     "esformatter": "^0.11.3",
     "eslint": "^8.1.0",
