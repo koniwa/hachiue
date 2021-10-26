@@ -6,6 +6,7 @@
     <title>Hachiue</title>
 
     <link href="data:image/gif;" rel="icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width,initial-scale=1">
 
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/bootstrap-icons.css">
@@ -30,16 +31,22 @@
         </div>
 
         <div id="demo">
-            <p id="subtitle" class="text-center text-info">&nbsp;</p>
 
-            <div id="wave-timeline"></div>
-
-            <div id="waveform">
-                <!-- Here be waveform -->
+            <div class="row">
+                <div id="subtitle" class="text-info col">&nbsp;</div>
+                <div class="col">
+                    <p style="text-align:right;">
+                        <span id="time-current">0.00</span> / <span id="time-total">0.00</span>
+                    </p>
+                </div>
             </div>
 
+
+            <div id="wave-timeline"></div>
+            <div id="waveform"></div>
+
             <div class="row" style="margin: 30px 0">
-                <div class="col-md-auto">
+                <div class="col-auto">
                     <button class="btn btn-primary btn-block" data-action="play">
                         <span id="play">
                             <span class="bi bi-play"></span>
@@ -53,7 +60,7 @@
                     </button>
                 </div>
 
-                <div class="col-md-auto">
+                <div class="col-auto">
                     <div style="text-align: right;">
                         <div class="bi bi-zoom-out" style="float: left;"></div>
                         <div class="bi bi-zoom-in"></div>
@@ -61,7 +68,7 @@
                     <input id="slider" data-action="zoom" type="range" min="1" max="200" value="0" style="width: 100%" />
                 </div>
 
-                <div class="col-md-auto">
+                <div class="col-auto">
                     <div style="text-align: right;">
                         <div class="bi bi-volume-off" style="float: left;"></div>
                         <div class="bi bi-volume-up"></div>
@@ -71,7 +78,7 @@
 
 
 
-                <div class="col-md-auto">
+                <div class="col-auto">
                     <button class="btn btn-danger" id="reset">
                         <span class="bi bi-trash"></span>
                     </button>
@@ -93,12 +100,7 @@
                     </button>
                 </div>
 
-
-                <div class="col-md-auto">
-                    <div><span id="time-current">0.00</span> / <span id="time-total">0.00</span></div>
-                </div>
-
-                <div class="col-md-auto">
+                <div class="col-md">
                     <div id="drag-and-drop-area">
                         <div>
                             D&amp;D or Click
@@ -234,11 +236,8 @@
 
     </div>
 
-    <div class="footer row">
-        <div class="col">
-        </div>
-
-        <div class="col-md-auto">
+    <div class="footer">
+        <div class="container" style="text-align:right;">
             <a target="_blank" rel="noreferrer" href="https://github.com/koniwa/hachiue">Hachiue</a>
             by
             <a target="_blank" rel="noreferrer" href="https://github.com/koniwa">Koniwa Project</a>

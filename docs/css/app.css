@@ -21,10 +21,9 @@
             #fff,
             #fff 3px,
             #337ab7 3px,
-            #337ab7 6px
-        );
+            #337ab7 6px);
 }
 
 #file-select {
-    visibility: hidden;
+    display: none;
 }

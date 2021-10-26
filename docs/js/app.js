@@ -94,9 +94,7 @@ function init_wavesurfer() {
 
     wavesurfer.on('audioprocess', function() {
       if (wavesurfer.isPlaying()) {
-        const totalTime = wavesurfer.getDuration();
         const currentTime = wavesurfer.getCurrentTime();
-        document.getElementById('time-total').innerText = totalTime.toFixed(1);
         document.getElementById('time-current').innerText = currentTime.toFixed(1);
       }
     });
@@ -121,6 +119,9 @@ function init_wavesurfer() {
       wavesurfer.enableDragSelection({
         color: randomColor(0.1)
       });
+
+      const totalTime = wavesurfer.getDuration();
+      document.getElementById('time-total').innerText = totalTime.toFixed(1);
     });
     wavesurfer.on('region-click', function(region, e) {
       e.stopPropagation();
