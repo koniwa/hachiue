@@ -213,6 +213,7 @@ function clear_annotations() {
   });
 
   wavesurfer.clearRegions();
+  old_region = null;
 }
 
 document.addEventListener('DOMContentLoaded', function() {
