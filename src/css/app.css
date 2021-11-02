@@ -27,3 +27,7 @@
 #file-select {
     display: none;
 }
+
+.jsoneditor-poweredBy {
+    display: none
+}

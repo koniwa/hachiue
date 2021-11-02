@@ -2,6 +2,7 @@ var wavesurfer; // eslint-disable-line no-var
 /* global WaveSurfer */
 /* global localforage */
 /* global bootstrap */
+/* global JSONEditor */
 
 const key_audio = 'key_audio_0';
 const key_annotation = 'key_annotation_0';
@@ -263,14 +264,18 @@ document.addEventListener('DOMContentLoaded', function() {
 
   { // meta editor
     const modal = document.querySelector('#edit_meta');
-    const mc = document.querySelector('#meta-content');
+    const container = document.getElementById('jsoneditor');
+    const options = {
+      mode: 'code',
+    };
+    const editor = new JSONEditor(container, options);
     modal.addEventListener('click', () => {
-      localforage.getItem(key_meta, (err, data) => {
+      localforage.getItem(key_meta, (_, data) => {
         if (data === null) {
-          mc.value = '{}';
+          editor.set({});
           return;
         }
-        mc.value = JSON.stringify(data, undefined, 4);
+        editor.set(data);
       });
     });
 
@@ -278,21 +283,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const modal_save = document.querySelector('#metaModal_save');
     modal_save.addEventListener('click', () => {
       try {
-        JSON.parse(mc.value);
+        const updatedJson = editor.get();
+        localforage.setItem(key_meta, updatedJson,
+          () => { // on success
+            const modal = document.getElementById('metaModal');
+            bootstrap.Modal.getInstance(modal).hide();
+          }).catch((err) => {
+          alert(`Error on save: ${err}`);
+        });
       } catch (e) {
         alert(e);
         return;
       }
-
-      localforage.setItem(key_meta, JSON.parse(mc.value),
-        () => { // on success
-          const modal = document.getElementById('metaModal');
-          bootstrap.Modal.getInstance(modal).hide();
-        }).catch((err) => {
-        alert(`Error on save: ${err}`);
-      });
-
-
     });
   }
 
