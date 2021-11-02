@@ -31,3 +31,9 @@ rsync -avP node_modules/wavesurfer.js/dist/plugin/wavesurfer.timeline.min.js* \
 mkdir -p src/3rd/localforage
 rsync -avP node_modules/localforage/dist/localforage.min.js \
     src/3rd/localforage
+
+mkdir -p src/3rd/jsoneditor
+rsync -avP node_modules/jsoneditor/dist/jsoneditor.min.js \
+    node_modules/jsoneditor/dist/jsoneditor.min.css \
+    node_modules/jsoneditor/dist/img \
+    src/3rd/jsoneditor
