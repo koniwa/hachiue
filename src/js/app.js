@@ -272,8 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
     modal.addEventListener('click', () => {
       localforage.getItem(key_meta, (_, data) => {
         if (data === null) {
-          editor.set({});
-          return;
+          data = {};
         }
         editor.set(data);
       });
