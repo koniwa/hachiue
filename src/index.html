@@ -96,6 +96,11 @@
                         <span class="bi bi-gear" aria-hidden="true"></span>
                     </button>
 
+                    <button class="btn btn-light" id="info" data-bs-toggle="modal" data-bs-target="#infoModal">
+                        <span class="bi bi-info-circle" aria-hidden="true"></span>
+                    </button>
+
+
                     <button class="btn btn-light" id="download_button">
                         <span class="bi bi-download" aria-hidden="true"></span>
                     </button>
@@ -198,7 +203,7 @@
             <div class="modal-dialog modal-dialog-fluid">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Meta (JSON)</h5>
+                        <h3 class="modal-title">Meta (JSON)</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
                     </div>
                     <div class="modal-body">
@@ -220,7 +225,7 @@
             <div class="modal-dialog modal-dialog-fluid">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Setting</h5>
+                        <h3 class="modal-title">Setting</h3>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
                     </div>
                     <div class="modal-body">
@@ -229,6 +234,27 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="modal fade" id="infoModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-fluid">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Information</h3>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cancel"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Key biddings</h4>
+                        <ul>
+                            <li>Shift + ←: Backward 0.2 seconds</li>
+                            <li>Shift + →: Forward 0.2 seconds</li>
+                            <li>Shift + Space: Play or Stop</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
 
 
