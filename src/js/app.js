@@ -133,7 +133,6 @@ function init_wavesurfer() {
     wavesurfer.on('region-click', editAnnotation);
     wavesurfer.on('region-updated', saveRegions);
     wavesurfer.on('region-removed', saveRegions);
-    wavesurfer.on('region-in', showNote);
 
     wavesurfer.on('region-play', function(region) {
       wavesurfer.play(region.start, region.end);
@@ -209,7 +208,6 @@ function init_wavesurfer() {
     // UI
     document.getElementById('title').innerText = 'Hachiue';
     document.title = 'Hachiue';
-    document.querySelector('#subtitle').innerText = '';
     document.getElementById('time-total').innerText = '0.00';
     document.getElementById('time-current').innerText = '0.00';
     const form = document.forms.edit;
@@ -512,12 +510,6 @@ function editAnnotation(region) {
   form.dataset.region = region.id;
 }
 
-function showNote(region) {
-  if (!showNote.el) {
-    showNote.el = document.querySelector('#subtitle');
-  }
-  showNote.el.textContent = region.data.text_level0 || '–';
-}
 
 
 
