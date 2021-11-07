@@ -376,7 +376,7 @@ document.addEventListener('DOMContentLoaded', function() {
     modal_save.addEventListener('click', () => {
       const new_val = [];
       document.getElementById('config_annotation_item_names').value.split(',').forEach((v) => {
-        new_val.push(v.replace(/^\s*(.*?)\s*$/, "$1"));
+        new_val.push(v.replace(/^\s*(.*?)\s*$/, '$1'));
       });
       set_annotation_items(new_val);
       try {
@@ -506,7 +506,9 @@ document.addEventListener('DOMContentLoaded', function() {
         break;
     }
   });
-
+  document.getElementById('button_play').addEventListener('click', () => {
+    wavesurfer.playPause();
+  });
 
 });
 
