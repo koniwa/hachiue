@@ -9,6 +9,8 @@ const key_annotation = 'key_annotation_0';
 const key_meta = 'key_meta_0';
 const item_name_annotation = 'annotation';
 const item_name_meta = 'meta';
+const key_annotation_item_names = 'key_annotation_item_names';
+const default_annotation_item_names = ['text_level0', 'kana_level0', 'text_level2', 'kana_level3'];
 
 
 
@@ -226,7 +228,48 @@ function clear_annotations() {
   old_region = null;
 }
 
+
+const escape_html_map = {
+  "&": "&amp;",
+  '"': "&quot;",
+  "<": "&lt;",
+  ">": "&gt;",
+}
+
+
 document.addEventListener('DOMContentLoaded', function() {
+
+  localforage.getItem(key_annotation_item_names, (err, annotation_item_names) => {
+    if (annotation_item_names === null) {
+      annotation_item_names = default_annotation_item_names;
+      localforage.setItem(key_annotation_item_names, annotation_item_names, () => {});
+    }
+
+    const area = document.getElementById('annotation_item_area');
+    let row_idx = 0;
+    for (let j = 0; j < annotation_item_names.length; ++j) {
+      const item_name = annotation_item_names[j].replace(/[&"<>]/g, e => escape_html_map[e])
+      if (j % 2 == 0) {
+        area.innerHTML += `<div class="form-group row" id="annotation_item_row_${row_idx}">
+                <div class="col" id="annotation_item_${j}">
+                </div>
+                <div class="col" id="annotation_item_${j + 1}">
+                </div>
+            </div>`;
+        row_idx += 1;
+      }
+      const row = document.getElementById(`annotation_item_${j}`)
+      row.innerHTML = `
+                <div class="col">
+                    <label for="vals__${item_name}">${item_name}</label>
+                    <textarea id="vals__${item_name}" class="form-control" name="vals__${item_name}"></textarea>
+                </div>
+        `;
+    }
+  });
+
+
+
   init_wavesurfer();
 
   { // Reset
