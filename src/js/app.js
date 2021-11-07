@@ -74,6 +74,7 @@ function init_wavesurfer() {
       container: '#waveform',
       height: 150,
       pixelRatio: 1,
+      skipLength: 0.5,
       scrollParent: true,
       normalize: true,
       minimap: true,
@@ -393,6 +394,29 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   });
+
+
+  document.addEventListener('keydown', (e) => {
+    if (!e.shiftKey) {
+      return;
+    }
+    switch (e.keyCode) {
+      case 32: // space
+        wavesurfer.playPause();
+        e.preventDefault();
+        break;
+      case 37: // left
+        wavesurfer.skipBackward();
+        e.preventDefault();
+        break;
+      case 39: // right
+        wavesurfer.skipForward();
+        e.preventDefault();
+        break;
+      default:
+        break;
+    }
+  })
 
 
 });
