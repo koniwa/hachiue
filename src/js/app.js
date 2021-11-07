@@ -237,6 +237,30 @@ const escape_html_map = {
 };
 
 
+function set_annotation_items(annotation_item_names) {
+  const area = document.getElementById('annotation_item_area');
+  let row_idx = 0;
+  for (let j = 0; j < annotation_item_names.length; ++j) {
+    const item_name = annotation_item_names[j].replace(/[&"<>]/g, e => escape_html_map[e]);
+    if (j % 2 == 0) {
+      area.innerHTML += `<div class="form-group row" id="annotation_item_row_${row_idx}">
+                <div class="col" id="annotation_item_${j}">
+                </div>
+                <div class="col" id="annotation_item_${j + 1}">
+                </div>
+            </div>`;
+      row_idx += 1;
+    }
+    const row = document.getElementById(`annotation_item_${j}`);
+    row.innerHTML = `
+                <div class="col">
+                    <label for="vals__${item_name}">${item_name}</label>
+                    <textarea id="vals__${item_name}" class="form-control" name="vals__${item_name}"></textarea>
+                </div>
+        `;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
 
   localforage.getItem(key_annotation_item_names, (err, annotation_item_names) => {
@@ -244,31 +268,8 @@ document.addEventListener('DOMContentLoaded', function() {
       annotation_item_names = default_annotation_item_names;
       localforage.setItem(key_annotation_item_names, annotation_item_names, () => {});
     }
-
-    const area = document.getElementById('annotation_item_area');
-    let row_idx = 0;
-    for (let j = 0; j < annotation_item_names.length; ++j) {
-      const item_name = annotation_item_names[j].replace(/[&"<>]/g, e => escape_html_map[e]);
-      if (j % 2 == 0) {
-        area.innerHTML += `<div class="form-group row" id="annotation_item_row_${row_idx}">
-                <div class="col" id="annotation_item_${j}">
-                </div>
-                <div class="col" id="annotation_item_${j + 1}">
-                </div>
-            </div>`;
-        row_idx += 1;
-      }
-      const row = document.getElementById(`annotation_item_${j}`);
-      row.innerHTML = `
-                <div class="col">
-                    <label for="vals__${item_name}">${item_name}</label>
-                    <textarea id="vals__${item_name}" class="form-control" name="vals__${item_name}"></textarea>
-                </div>
-        `;
-    }
+    set_annotation_items(annotation_item_names);
   });
-
-
 
   init_wavesurfer();
 
@@ -353,9 +354,10 @@ document.addEventListener('DOMContentLoaded', function() {
   { // config editor
     const modal = document.querySelector('#configModal');
     modal.addEventListener('show.bs.modal', function() {
+      document.getElementById('default_annotation_item_names').innerText = default_annotation_item_names;
+
       localforage.getItem(key_annotation_item_names, (_, data) => {
         document.getElementById('config_annotation_item_names').value = data;
-        console.log(data);
       });
     });
 
