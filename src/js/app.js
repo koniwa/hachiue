@@ -192,6 +192,16 @@ function init_wavesurfer() {
     };
     volumeInput.addEventListener('input', onChangeVolume);
     volumeInput.addEventListener('change', onChangeVolume);
+
+    document.getElementById('volume_zero').addEventListener('click', () => {
+      wavesurfer.setVolume(0);
+      volumeInput.value = 0;
+    });
+    document.getElementById('volume_max').addEventListener('click', () => {
+      wavesurfer.setVolume(1);
+      volumeInput.value = 1;
+    });
+
   }
 
   {
