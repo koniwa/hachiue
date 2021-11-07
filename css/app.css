@@ -38,3 +38,8 @@
     width: 98%;
     margin-left: 15px;
 }
+
+.like-pre {
+    white-space: pre;
+    background: #d4d4d4;
+}

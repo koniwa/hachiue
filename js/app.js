@@ -9,6 +9,8 @@ const key_annotation = 'key_annotation_0';
 const key_meta = 'key_meta_0';
 const item_name_annotation = 'annotation';
 const item_name_meta = 'meta';
+const key_annotation_item_names = 'key_annotation_item_names';
+const default_annotation_item_names = ['text_level0', 'kana_level0', 'text_level2', 'kana_level3'];
 
 
 
@@ -74,6 +76,7 @@ function init_wavesurfer() {
       container: '#waveform',
       height: 150,
       pixelRatio: 1,
+      skipLength: 0.5,
       scrollParent: true,
       normalize: true,
       minimap: true,
@@ -132,7 +135,6 @@ function init_wavesurfer() {
     wavesurfer.on('region-click', editAnnotation);
     wavesurfer.on('region-updated', saveRegions);
     wavesurfer.on('region-removed', saveRegions);
-    wavesurfer.on('region-in', showNote);
 
     wavesurfer.on('region-play', function(region) {
       wavesurfer.play(region.start, region.end);
@@ -192,13 +194,22 @@ function init_wavesurfer() {
     };
     volumeInput.addEventListener('input', onChangeVolume);
     volumeInput.addEventListener('change', onChangeVolume);
+
+    document.getElementById('volume_zero').addEventListener('click', () => {
+      wavesurfer.setVolume(0);
+      volumeInput.value = 0;
+    });
+    document.getElementById('volume_max').addEventListener('click', () => {
+      wavesurfer.setVolume(1);
+      volumeInput.value = 1;
+    });
+
   }
 
   {
     // UI
     document.getElementById('title').innerText = 'Hachiue';
     document.title = 'Hachiue';
-    document.querySelector('#subtitle').innerText = '';
     document.getElementById('time-total').innerText = '0.00';
     document.getElementById('time-current').innerText = '0.00';
     const form = document.forms.edit;
@@ -217,7 +228,51 @@ function clear_annotations() {
   old_region = null;
 }
 
+
+const escape_html_map = {
+  '&': '&amp;',
+  '"': '&quot;',
+  '<': '&lt;',
+  '>': '&gt;',
+};
+
+
+function set_annotation_items(annotation_item_names) {
+  const area = document.getElementById('annotation_item_area');
+  area.innerHTML = '';
+
+  let row_idx = 0;
+  for (let j = 0; j < annotation_item_names.length; ++j) {
+    const item_name = annotation_item_names[j].replace(/[&"<>]/g, e => escape_html_map[e]);
+    if (j % 2 == 0) {
+      area.innerHTML += `<div class="form-group row" id="annotation_item_row_${row_idx}">
+                <div class="col" id="annotation_item_${j}">
+                </div>
+                <div class="col" id="annotation_item_${j + 1}">
+                </div>
+            </div>`;
+      row_idx += 1;
+    }
+    const row = document.getElementById(`annotation_item_${j}`);
+    row.innerHTML = `
+                <div class="col">
+                    <label for="vals__${item_name}">${item_name}</label>
+                    <textarea id="vals__${item_name}" class="form-control" name="vals__${item_name}"></textarea>
+                </div>
+        `;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+
+  localforage.getItem(key_annotation_item_names, (err, annotation_item_names) => {
+    if (annotation_item_names === null) {
+      annotation_item_names = default_annotation_item_names;
+      localforage.setItem(key_annotation_item_names, annotation_item_names, () => {});
+    }
+    set_annotation_items(annotation_item_names);
+  });
+
   init_wavesurfer();
 
   { // Reset
@@ -295,6 +350,51 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
     });
+  }
+
+
+  { // config editor
+    const modal = document.querySelector('#configModal');
+    modal.addEventListener('show.bs.modal', function(e) {
+
+      if (document.forms.edit.style.opacity != 0) {
+        alert('Close form');
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
+      }
+
+      document.getElementById('default_annotation_item_names').innerText = default_annotation_item_names;
+
+      localforage.getItem(key_annotation_item_names, (_, data) => {
+        document.getElementById('config_annotation_item_names').value = data;
+      });
+    });
+
+
+    const modal_save = document.querySelector('#configModal_save');
+    modal_save.addEventListener('click', () => {
+      const new_val = [];
+      document.getElementById('config_annotation_item_names').value.split(',').forEach((v) => {
+        new_val.push(v.replace(/^\s*(.*?)\s*$/, '$1'));
+      });
+      set_annotation_items(new_val);
+      try {
+        localforage.setItem(key_annotation_item_names, new_val,
+          () => { // on success
+            const modal = document.getElementById('configModal');
+            bootstrap.Modal.getInstance(modal).hide();
+          }).catch((err) => {
+          alert(`Error on save: ${err}`);
+        });
+      } catch (e) {
+        alert(e);
+        return;
+      }
+    });
+
+
+
   }
 
   {
@@ -384,6 +484,31 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
+
+  document.addEventListener('keydown', (e) => {
+    if (!e.shiftKey) {
+      return;
+    }
+    switch (e.keyCode) {
+      case 32: // space
+        wavesurfer.playPause();
+        e.preventDefault();
+        break;
+      case 37: // left
+        wavesurfer.skipBackward();
+        e.preventDefault();
+        break;
+      case 39: // right
+        wavesurfer.skipForward();
+        e.preventDefault();
+        break;
+      default:
+        break;
+    }
+  });
+  document.getElementById('button_play').addEventListener('click', () => {
+    wavesurfer.playPause();
+  });
 
 });
 
@@ -478,12 +603,6 @@ function editAnnotation(region) {
   form.dataset.region = region.id;
 }
 
-function showNote(region) {
-  if (!showNote.el) {
-    showNote.el = document.querySelector('#subtitle');
-  }
-  showNote.el.textContent = region.data.text_level0 || '–';
-}
 
 
 
