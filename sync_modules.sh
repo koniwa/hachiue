@@ -35,5 +35,6 @@ rsync -avP node_modules/localforage/dist/localforage.min.js \
 mkdir -p src/3rd/jsoneditor
 rsync -avP node_modules/jsoneditor/dist/jsoneditor.min.js \
     node_modules/jsoneditor/dist/jsoneditor.min.css \
+    node_modules/jsoneditor/dist/jsoneditor.map \
     node_modules/jsoneditor/dist/img \
     src/3rd/jsoneditor
