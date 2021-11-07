@@ -230,11 +230,11 @@ function clear_annotations() {
 
 
 const escape_html_map = {
-  "&": "&amp;",
-  '"': "&quot;",
-  "<": "&lt;",
-  ">": "&gt;",
-}
+  '&': '&amp;',
+  '"': '&quot;',
+  '<': '&lt;',
+  '>': '&gt;',
+};
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -248,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const area = document.getElementById('annotation_item_area');
     let row_idx = 0;
     for (let j = 0; j < annotation_item_names.length; ++j) {
-      const item_name = annotation_item_names[j].replace(/[&"<>]/g, e => escape_html_map[e])
+      const item_name = annotation_item_names[j].replace(/[&"<>]/g, e => escape_html_map[e]);
       if (j % 2 == 0) {
         area.innerHTML += `<div class="form-group row" id="annotation_item_row_${row_idx}">
                 <div class="col" id="annotation_item_${j}">
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>`;
         row_idx += 1;
       }
-      const row = document.getElementById(`annotation_item_${j}`)
+      const row = document.getElementById(`annotation_item_${j}`);
       row.innerHTML = `
                 <div class="col">
                     <label for="vals__${item_name}">${item_name}</label>
@@ -347,6 +347,41 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
     });
+  }
+
+
+  { // config editor
+    const modal = document.querySelector('#configModal');
+    modal.addEventListener('show.bs.modal', function() {
+      localforage.getItem(key_annotation_item_names, (_, data) => {
+        document.getElementById('config_annotation_item_names').value = data;
+        console.log(data);
+      });
+    });
+
+
+    const modal_save = document.querySelector('#configModal_save');
+    modal_save.addEventListener('click', () => {
+      const new_val = [];
+      document.getElementById('config_annotation_item_names').value.split(',').forEach((v) => {
+        new_val.push(v.replace(/^\s*(.*?)\s*$/, "$1"));
+      });
+      try {
+        localforage.setItem(key_annotation_item_names, new_val,
+          () => { // on success
+            const modal = document.getElementById('configModal');
+            bootstrap.Modal.getInstance(modal).hide();
+          }).catch((err) => {
+          alert(`Error on save: ${err}`);
+        });
+      } catch (e) {
+        alert(e);
+        return;
+      }
+    });
+
+
+
   }
 
   {
