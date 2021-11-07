@@ -239,6 +239,8 @@ const escape_html_map = {
 
 function set_annotation_items(annotation_item_names) {
   const area = document.getElementById('annotation_item_area');
+  area.innerHTML = '';
+
   let row_idx = 0;
   for (let j = 0; j < annotation_item_names.length; ++j) {
     const item_name = annotation_item_names[j].replace(/[&"<>]/g, e => escape_html_map[e]);
@@ -353,7 +355,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
   { // config editor
     const modal = document.querySelector('#configModal');
-    modal.addEventListener('show.bs.modal', function() {
+    modal.addEventListener('show.bs.modal', function(e) {
+
+      if (document.forms.edit.style.opacity != 0) {
+        alert('Close form');
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
+      }
+
       document.getElementById('default_annotation_item_names').innerText = default_annotation_item_names;
 
       localforage.getItem(key_annotation_item_names, (_, data) => {
@@ -368,6 +378,7 @@ document.addEventListener('DOMContentLoaded', function() {
       document.getElementById('config_annotation_item_names').value.split(',').forEach((v) => {
         new_val.push(v.replace(/^\s*(.*?)\s*$/, "$1"));
       });
+      set_annotation_items(new_val);
       try {
         localforage.setItem(key_annotation_item_names, new_val,
           () => { // on success
