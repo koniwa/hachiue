@@ -1,31 +1,19 @@
 {
-  "env": {
-    "browser": true,
-    "jquery": true,
-    "es6": true,
-    "node": true,
-    "amd": true
-  },
-  "globals": {
-    "w2ui": true
-  },
-  "extends": "eslint:recommended",
-  "rules": {
-    "no-console": 0,
-    "linebreak-style": [
-      "error",
-      "unix"
+    "env": {
+        "amd": true,
+        "browser": true,
+        "es6": true,
+        "jquery": true,
+        "node": true
+    },
+    "extends": [
+        "prettier"
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ]
-  },
-  "parserOptions": {
-    "ecmaVersion": 2017
-  }
+    "globals": {
+        "w2ui": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 2017
+    },
+    "rules": {}
 }

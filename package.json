@@ -11,8 +11,7 @@
     "test:css": "find src/css -maxdepth 1 -mindepth 1 -type f | xargs npx stylelint",
     "format:html": "find src -name '*.html'| xargs -I {} bash -c 'npx html-beautify -q --end-with-newline {} | diff -q - {} '",
     "format:css": "find src/css -maxdepth 1 -mindepth 1 -type f | xargs -I {} bash -c 'npx css-beautify -q --end-with-newline {} | diff -q - {} '",
-    "format:js": "find src/js -type f | xargs esformatter --diff",
-    "test": "run-s test:eslint test:html test:md test:css format:html format:css format:js",
+    "test": "run-s test:eslint test:html test:md test:css format:html format:css",
     "build": "bash sync_modules.sh"
   },
   "repository": {
@@ -33,8 +32,9 @@
     "wavesurfer.js": "^5.2.0"
   },
   "devDependencies": {
-    "esformatter": "^0.11.3",
     "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
     "htmlhint": "^0.16.1",
     "js-beautify": "^1.14.0",
     "markdownlint-cli": "^0.29.0",
