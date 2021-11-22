@@ -8,9 +8,9 @@
     "test:eslint": "find src/js -type f | xargs eslint",
     "test:html": "htmlhint src",
     "test:md": "npx markdownlint *.md",
-    "test:css": "find src/css -maxdepth 1 -mindepth 1 -type f | xargs npx stylelint",
+    "test:css": "find src/css -type f | xargs npx stylelint",
     "format:html": "find src -name '*.html'| xargs -I {} bash -c 'npx html-beautify -q --end-with-newline {} | diff -q - {} '",
-    "format:css": "find src/css -maxdepth 1 -mindepth 1 -type f | xargs -I {} bash -c 'npx css-beautify -q --end-with-newline {} | diff -q - {} '",
+    "format:css": "find src/css -type f | xargs -I {} bash -c 'npx css-beautify -q --end-with-newline {} | diff -q - {} '",
     "test": "run-s test:eslint test:html test:md test:css format:html format:css",
     "build": "bash sync_modules.sh"
   },
