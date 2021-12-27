@@ -17,6 +17,20 @@ const default_annotation_item_names = [
   "kana_level3",
 ];
 
+function hms(sec) {
+  const timeH = Math.floor((sec % (24 * 60 * 60)) / (60 * 60))
+    .toString()
+    .padStart(2, "0");
+  const timeM = Math.floor(((sec % (24 * 60 * 60)) % (60 * 60)) / 60)
+    .toString()
+    .padStart(2, "0");
+  const timeS = (((sec % (24 * 60 * 60)) % (60 * 60)) % 60)
+    .toFixed(0)
+    .toString()
+    .padStart(2, "0");
+  return `${timeH}:${timeM}:${timeS}`;
+}
+
 function load_audio(file) {
   if (file === null) {
     return;
@@ -104,6 +118,8 @@ function init_wavesurfer() {
         const currentTime = wavesurfer.getCurrentTime();
         document.getElementById("time-current").innerText =
           currentTime.toFixed(1);
+        document.getElementById("time-current-hms").innerText =
+          hms(currentTime);
       }
     });
 
@@ -128,7 +144,10 @@ function init_wavesurfer() {
       });
 
       const totalTime = wavesurfer.getDuration();
-      document.getElementById("time-total").innerText = totalTime.toFixed(1);
+      document.getElementById("time-total").innerText = `${totalTime.toFixed(
+        1
+      )}`;
+      document.getElementById("time-total-hms").innerText = hms(totalTime);
     });
     wavesurfer.on("region-click", function (region, e) {
       e.stopPropagation();
@@ -212,6 +231,8 @@ function init_wavesurfer() {
     document.title = "Hachiue";
     document.getElementById("time-total").innerText = "0.00";
     document.getElementById("time-current").innerText = "0.00";
+    document.getElementById("time-total-hms").innerText = "00:00:00";
+    document.getElementById("time-current-hms").innerText = "00:00:00";
     const form = document.forms.edit;
     form.style.opacity = 0;
   }
