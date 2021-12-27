@@ -226,6 +226,14 @@ function init_wavesurfer() {
   }
 
   {
+    ["start", "end"].forEach((label) => {
+      document.getElementById(label).addEventListener("change", (e) => {
+        document.getElementById(`${label}-hms`).value = hms(e.target.value );
+      });
+    });
+  }
+
+  {
     // UI
     document.getElementById("title").innerText = "Hachiue";
     document.title = "Hachiue";
@@ -625,7 +633,9 @@ function editAnnotation(region) {
   const form = document.forms.edit;
   form.style.opacity = 1;
   form.elements.start.value = Math.round(region.start * 100) / 100;
+  document.getElementById('start').dispatchEvent(new Event('change'));
   form.elements.end.value = Math.round(region.end * 100) / 100;
+  document.getElementById('end').dispatchEvent(new Event('change'));
 
   for (const [key, el] of Object.entries(form.elements)) {
     if (key.startsWith("vals__")) {
