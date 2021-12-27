@@ -624,8 +624,8 @@ function editAnnotation(region) {
 
   const form = document.forms.edit;
   form.style.opacity = 1;
-  (form.elements.start.value = Math.round(region.start * 100) / 100),
-    (form.elements.end.value = Math.round(region.end * 100) / 100);
+  form.elements.start.value = Math.round(region.start * 100) / 100;
+  form.elements.end.value = Math.round(region.end * 100) / 100;
 
   for (const [key, el] of Object.entries(form.elements)) {
     if (key.startsWith("vals__")) {
