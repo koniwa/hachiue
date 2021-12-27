@@ -22,7 +22,7 @@ You have two options.
     ```bash
     git clone https://github.com/koniwa/hachiue.git
     cd hachiue
-    npm install
+    npm install --production
     npm run build
     ```
 
