@@ -113,13 +113,18 @@ function init_wavesurfer() {
       ],
     });
 
+    function set_current_time() {
+      const currentTime = wavesurfer.getCurrentTime();
+      document.getElementById("time-current").innerText =
+        currentTime.toFixed(1);
+      document.getElementById("time-current-hms").innerText = hms(currentTime);
+    }
+    wavesurfer.on("seek", function () {
+      set_current_time();
+    });
     wavesurfer.on("audioprocess", function () {
       if (wavesurfer.isPlaying()) {
-        const currentTime = wavesurfer.getCurrentTime();
-        document.getElementById("time-current").innerText =
-          currentTime.toFixed(1);
-        document.getElementById("time-current-hms").innerText =
-          hms(currentTime);
+        set_current_time();
       }
     });
 
@@ -228,8 +233,14 @@ function init_wavesurfer() {
   {
     ["start", "end"].forEach((label) => {
       document.getElementById(label).addEventListener("change", (e) => {
-        document.getElementById(`${label}-hms`).value = hms(e.target.value );
+        document.getElementById(`${label}-hms`).value = hms(e.target.value);
       });
+      document
+        .getElementById(`${label}-setnow`)
+        .addEventListener("click", (e) => {
+          document.getElementById(`${label}`).value =
+            document.getElementById(`time-current`).innerText;
+        });
     });
   }
 
@@ -633,9 +644,9 @@ function editAnnotation(region) {
   const form = document.forms.edit;
   form.style.opacity = 1;
   form.elements.start.value = Math.round(region.start * 100) / 100;
-  document.getElementById('start').dispatchEvent(new Event('change'));
+  document.getElementById("start").dispatchEvent(new Event("change"));
   form.elements.end.value = Math.round(region.end * 100) / 100;
-  document.getElementById('end').dispatchEvent(new Event('change'));
+  document.getElementById("end").dispatchEvent(new Event("change"));
 
   for (const [key, el] of Object.entries(form.elements)) {
     if (key.startsWith("vals__")) {
