@@ -81,8 +81,22 @@ function load_files(files) {
         saveRegions();
       };
       reader.readAsText(f);
+    } else if (f.type.length == 0) {
+      if (!window.confirm("Load JSONL and clear all current annotations?")) {
+        return;
+      }
+
+      wavesurfer.clearRegions();
+      const reader = new FileReader();
+      reader.onload = () => {
+        const rgs = reader.result.trim().split("\n").map(JSON.parse);
+        loadRegions(rgs);
+        console.log(rgs);
+        saveRegions();
+      };
+      reader.readAsText(f);
     } else {
-      alert(`Unsupported file type ${f.type}`);
+      alert(`Unsupported file type: "${f.type}"`);
     }
   });
 }
