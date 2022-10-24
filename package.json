@@ -32,7 +32,7 @@
     "wavesurfer.js": "^6.3.0"
   },
   "devDependencies": {
-    "eslint": ">=8.25.0",
+    "eslint": ">=8.26.0",
     "eslint-config-prettier": ">=8.3.0",
     "eslint-plugin-prettier": ">=4.2.1",
     "htmlhint": "^1.1.3",
