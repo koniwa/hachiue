@@ -27,7 +27,7 @@
   "dependencies": {
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.2",
-    "jsoneditor": "^9.10.1",
+    "jsoneditor": "^9.10.2",
     "localforage": "^1.10.0",
     "wavesurfer.js": "^6.3.0"
   },
