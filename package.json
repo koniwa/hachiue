@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/koniwa/hachiue",
   "dependencies": {
-    "bootstrap": "^5.2.3",
+    "bootstrap": "^5.3.0",
     "bootstrap-icons": "^1.10.2",
     "jsoneditor": "^9.10.1",
     "localforage": "^1.10.0",
