@@ -30,10 +30,10 @@
     "bootstrap-icons": "^1.11.1",
     "jsoneditor": "^9.10.3",
     "localforage": "^1.10.0",
-    "wavesurfer.js": "^7.3.3"
+    "wavesurfer.js": "^6.6.4"
   },
   "devDependencies": {
-    "eslint": "^8.50.0",
+    "eslint": "^8.51.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
     "htmlhint": "^1.1.4",
@@ -44,6 +44,6 @@
     "stylelint-config-recommended": "^13.0.0"
   },
   "engines": {
-      "npm": "Use pnpm instead of npm!"
+    "npm": "Use pnpm instead of npm!"
   }
 }
