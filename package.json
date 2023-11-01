@@ -30,7 +30,7 @@
     "bootstrap-icons": "^1.11.1",
     "jsoneditor": "^9.10.3",
     "localforage": "^1.10.0",
-    "wavesurfer.js": "^6.6.4"
+    "wavesurfer.js": "^7.4.2"
   },
   "devDependencies": {
     "eslint": "^8.51.0",
