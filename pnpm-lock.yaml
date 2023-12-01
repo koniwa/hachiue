@@ -12,8 +12,8 @@ dependencies:
     specifier: ^1.11.1
     version: 1.11.1
   jsoneditor:
-    specifier: ^9.10.3
-    version: 9.10.3
+    specifier: ^9.10.4
+    version: 9.10.4
   localforage:
     specifier: ^1.10.0
     version: 1.10.0
@@ -1576,8 +1576,8 @@ packages:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
     dev: true
 
-  /jsoneditor@9.10.3:
-    resolution: {integrity: sha512-9vSMTPKBZzz56WY0SjbV7VQqa1+wUPKmwqtitmVXmTT5ohAMOYlOLgOdRwj0bl81nHP5HsKsYEVLCPiArHNSFw==}
+  /jsoneditor@9.10.4:
+    resolution: {integrity: sha512-tr7dSARLHM65OQTE81zo5fQAjLzijLl+u/z+pcJaeaFzgkey59Gi8TDCYIejQ/plvm6RLVmuEeqgDhsQdayhiQ==}
     dependencies:
       ace-builds: 1.31.1
       ajv: 6.12.6
