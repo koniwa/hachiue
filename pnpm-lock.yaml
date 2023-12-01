@@ -18,8 +18,8 @@ dependencies:
     specifier: ^1.10.0
     version: 1.10.0
   wavesurfer.js:
-    specifier: ^6.6.4
-    version: 6.6.4
+    specifier: ^7.4.12
+    version: 7.4.12
 
 devDependencies:
   eslint:
@@ -2752,8 +2752,8 @@ packages:
       '@sphinxxxx/color-conversion': 2.2.2
     dev: false
 
-  /wavesurfer.js@6.6.4:
-    resolution: {integrity: sha512-nBbc0pD/3FdClxKUKL1UW2V9AJPL+JOjC8T6/YF9/FCAn4uo+H6Y8VBkXo9UJXIHoBewoc7iXj3tPeL0UCJhjA==}
+  /wavesurfer.js@7.4.12:
+    resolution: {integrity: sha512-KzH4LkcOp8LECs9cOVIPBl6vsSoICKuZz+v5kh/zvxilpaVszU+QKC+4s2KEAqcCxBCecg3cNSg4RqAx278F8g==}
     dev: false
 
   /webidl-conversions@3.0.1:
