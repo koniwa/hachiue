@@ -12,8 +12,8 @@ dependencies:
     specifier: ^1.11.2
     version: 1.11.2
   jsoneditor:
-    specifier: ^9.10.5
-    version: 9.10.5
+    specifier: ^10.0.0
+    version: 10.0.0
   localforage:
     specifier: ^1.10.0
     version: 1.10.0
@@ -1440,22 +1440,22 @@ packages:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
     dev: true
 
-  /jsoneditor@9.10.5:
-    resolution: {integrity: sha512-fVZ0NMt+zm4rqTKBv2x7zPdLeaRyKo1EjJkaR1QjK4gEM1rMwICILYSW1OPxSc1qqyAoDaA/eeNrluKoxOocCA==}
+  /jsoneditor@10.0.0:
+    resolution: {integrity: sha512-yh/kj/Ecxacj7ZG2ynmJvHcESgdHiAe1N7iKUVIYFpeP4/rwp87yua2y0BDayyY6uJz01KgRvdl4W1Wt94EkOQ==}
     dependencies:
       ace-builds: 1.32.3
       ajv: 6.12.6
       javascript-natural-sort: 0.7.1
       jmespath: 0.16.0
       json-source-map: 0.6.1
-      jsonrepair: 3.1.0
+      jsonrepair: 3.5.0
       mobius1-selectr: 2.4.13
       picomodal: 3.0.0
       vanilla-picker: 2.12.2
     dev: false
 
-  /jsonrepair@3.1.0:
-    resolution: {integrity: sha512-idqReg23J0PVRAADmZMc5xQM3xeOX5bTB6OTyMnzq33IXJXmn9iJuWIEvGmrN80rQf4d7uLTMEDwpzujNcI0Rg==}
+  /jsonrepair@3.5.0:
+    resolution: {integrity: sha512-SavvDsUP9Xnqo2MoC6Wl6zNyX3f+I5199hRbXBtAITyP2NTPyAgyx5xM0bgcIljRjzsIvOBANbgfWe8XXlyeLA==}
     hasBin: true
     dev: false
 
