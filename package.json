@@ -28,14 +28,14 @@
   "dependencies": {
     "bootstrap": "^5.3.2",
     "bootstrap-icons": "^1.11.2",
-    "jsoneditor": "^9.10.4",
+    "jsoneditor": "^9.10.5",
     "localforage": "^1.10.0",
     "wavesurfer.js": "^6.6.4"
   },
   "devDependencies": {
-    "eslint": "^8.54.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-prettier": "^5.0.1",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.1.2",
     "htmlhint": "^1.1.4",
     "js-beautify": "^1.14.11",
     "markdownlint-cli": "^0.37.0",
