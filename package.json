@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "eslint": "^8.54.0",
-    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.0.1",
     "htmlhint": "^1.1.4",
     "js-beautify": "^1.14.11",
