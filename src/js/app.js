@@ -164,7 +164,7 @@ function init_wavesurfer() {
 
       const totalTime = wavesurfer.getDuration();
       document.getElementById("time-total").innerText = `${totalTime.toFixed(
-        1
+        1,
       )}`;
       document.getElementById("time-total-hms").innerText = hms(totalTime);
     });
@@ -297,7 +297,7 @@ function set_annotation_items(annotation_item_names) {
   for (let j = 0; j < annotation_item_names.length; ++j) {
     const item_name = annotation_item_names[j].replace(
       /[&"<>]/g,
-      (e) => escape_html_map[e]
+      (e) => escape_html_map[e],
     );
     if (j % 2 == 0) {
       area.innerHTML += `<div class="form-group row" id="annotation_item_row_${row_idx}">
@@ -327,11 +327,11 @@ document.addEventListener("DOMContentLoaded", function () {
         localforage.setItem(
           key_annotation_item_names,
           annotation_item_names,
-          () => {}
+          () => {},
         );
       }
       set_annotation_items(annotation_item_names);
-    }
+    },
   );
 
   init_wavesurfer();
@@ -373,8 +373,8 @@ document.addEventListener("DOMContentLoaded", function () {
         extractRegions(
           wavesurfer.backend.getPeaks(num_subranges),
           duration,
-          unit_second
-        )
+          unit_second,
+        ),
       );
       saveRegions();
     });
@@ -470,7 +470,7 @@ document.addEventListener("DOMContentLoaded", function () {
       function (ev) {
         ev.preventDefault();
       },
-      false
+      false,
     );
     window.addEventListener(
       "drop",
@@ -478,7 +478,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ev.preventDefault();
         ev.stopPropagation();
       },
-      false
+      false,
     );
 
     // cf: https://r17n.page/2020/10/24/html-js-drag-and-drop-file/
@@ -549,7 +549,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const url = URL.createObjectURL(
           new Blob([out], {
             type: "application/json",
-          })
+          }),
         );
         const a = document.createElement("a");
         document.body.appendChild(a);
