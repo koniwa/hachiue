@@ -1,45 +1,48 @@
 .wavesurfer-region:before {
-    content: attr(data-region-label);
+  content: attr(data-region-label);
 }
 
 .wavesurfer-region[data-region-highlight] {
-    border: 1px solid rgb(86, 180, 239);
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.05) inset, 0px 0px 8px rgba(82, 168, 236, 0.6);
+  border: 1px solid rgb(86, 180, 239);
+  box-shadow:
+    0px 1px 3px rgba(0, 0, 0, 0.05) inset,
+    0px 0px 8px rgba(82, 168, 236, 0.6);
 }
 
 #drag-and-drop-area {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 1px solid gray;
-    height: 3em;
-    cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid gray;
+  height: 3em;
+  cursor: pointer;
 }
 
 .active {
-    background: repeating-linear-gradient(45deg,
-            #fff,
-            #fff 3px,
-            #337ab7 3px,
-            #337ab7 6px);
+  background: repeating-linear-gradient(
+    45deg,
+    #fff,
+    #fff 3px,
+    #337ab7 3px,
+    #337ab7 6px
+  );
 }
 
 #file-select {
-    display: none;
+  display: none;
 }
 
 .jsoneditor-poweredBy {
-    display: none
+  display: none;
 }
 
-
 .modal-dialog-fluid {
-    max-width: inherit;
-    width: 98%;
-    margin-left: 15px;
+  max-width: inherit;
+  width: 98%;
+  margin-left: 15px;
 }
 
 .like-pre {
-    white-space: pre;
-    background: #d4d4d4;
+  white-space: pre;
+  background: #d4d4d4;
 }
