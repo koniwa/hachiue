@@ -1,4 +1,4 @@
-var wavesurfer; // eslint-disable-line no-var
+var wavesurfer;
 /* global WaveSurfer */
 /* global localforage */
 /* global bootstrap */
