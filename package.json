@@ -7,7 +7,7 @@
   "directories": {},
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "test:eslint": "find src/js -type f | xargs eslint",
+    "test:eslint": "eslint ./src/js",
     "test:html": "htmlhint src",
     "test:md": "npx markdownlint *.md",
     "test:prettier": "npx prettier --check src",
