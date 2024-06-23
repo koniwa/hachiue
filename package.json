@@ -7,12 +7,10 @@
   "directories": {},
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "test:eslint": "eslint ./src/js",
-    "test:html": "htmlhint src",
+    "format": "biome format --write ./src/js ./src/css ./src/*.html",
+    "test:biome": "biome check ./src/js ./src/css ./src/*.html",
     "test:md": "npx markdownlint *.md",
-    "test:prettier": "npx prettier --check src",
-    "test": "run-s test:eslint test:html test:md test:prettier",
-    "style": "npx prettier -w ./src/css ./src/index.html ./src/js",
+    "test": "run-s test:biome test:md",
     "build": "bash sync_modules.sh"
   },
   "repository": {
@@ -28,15 +26,12 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "jsoneditor": "^10.0.3",
+    "jsoneditor": "^10.1.0",
     "localforage": "^1.10.0",
     "wavesurfer.js": "^6.6.4"
   },
   "devDependencies": {
-    "eslint": "^9.4.0",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "htmlhint": "^1.1.4",
+    "@biomejs/biome": "1.8.2",
     "markdownlint-cli": "^0.41.0",
     "npm-run-all": "^4.1.5"
   },
