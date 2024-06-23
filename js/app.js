@@ -1,4 +1,6 @@
+// biome-ignore lint/style/noVar: Not required
 var wavesurfer;
+
 /* global WaveSurfer */
 /* global localforage */
 /* global bootstrap */
@@ -10,12 +12,7 @@ const key_meta = "key_meta_0";
 const item_name_annotation = "annotation";
 const item_name_meta = "meta";
 const key_annotation_item_names = "key_annotation_item_names";
-const default_annotation_item_names = [
-  "text_level0",
-  "kana_level0",
-  "text_level2",
-  "kana_level3",
-];
+const default_annotation_item_names = ["text_level0", "kana_level0", "text_level2", "kana_level3"];
 
 function hms(sec) {
   const timeH = Math.floor((sec % (24 * 60 * 60)) / (60 * 60))
@@ -24,10 +21,7 @@ function hms(sec) {
   const timeM = Math.floor(((sec % (24 * 60 * 60)) % (60 * 60)) / 60)
     .toString()
     .padStart(2, "0");
-  const timeS = (((sec % (24 * 60 * 60)) % (60 * 60)) % 60)
-    .toFixed(0)
-    .toString()
-    .padStart(2, "0");
+  const timeS = (((sec % (24 * 60 * 60)) % (60 * 60)) % 60).toFixed(0).toString().padStart(2, "0");
   return `${timeH}:${timeM}:${timeS}`;
 }
 
@@ -35,14 +29,12 @@ function load_audio(file) {
   if (file === null) {
     return;
   }
-  {
-    document.getElementById("title").innerText = `${file.name}`;
-    document.title = `${file.name} - Hachiue`;
-  }
+  document.getElementById("title").innerText = `${file.name}`;
+  document.title = `${file.name} - Hachiue`;
 
   const url_file = URL.createObjectURL(file);
   const slider = document.querySelector("#slider");
-  slider.oninput = function () {
+  slider.oninput = () => {
     const zoomLevel = Number(slider.value);
     wavesurfer.zoom(zoomLevel);
   };
@@ -50,7 +42,7 @@ function load_audio(file) {
 }
 
 function load_files(files) {
-  Array.from(files).forEach((f) => {
+  for (const f of files) {
     if (f.type.match(/audio\/*/)) {
       /**/
       load_audio(f);
@@ -58,7 +50,7 @@ function load_files(files) {
       localforage.setItem(key_audio, f).catch((err) => {
         alert(err);
       });
-    } else if (f.type == "application/json") {
+    } else if (f.type === "application/json") {
       wavesurfer.clearRegions();
 
       const reader = new FileReader();
@@ -81,7 +73,7 @@ function load_files(files) {
         saveRegions();
       };
       reader.readAsText(f);
-    } else if (f.type.length == 0) {
+    } else if (f.type.length === 0) {
       if (!window.confirm("Load JSONL and clear all current annotations?")) {
         return;
       }
@@ -98,7 +90,7 @@ function load_files(files) {
     } else {
       alert(`Unsupported file type: "${f.type}"`);
     }
-  });
+  }
 }
 
 function init_wavesurfer() {
@@ -129,14 +121,13 @@ function init_wavesurfer() {
 
     function set_current_time() {
       const currentTime = wavesurfer.getCurrentTime();
-      document.getElementById("time-current").innerText =
-        currentTime.toFixed(1);
+      document.getElementById("time-current").innerText = currentTime.toFixed(1);
       document.getElementById("time-current-hms").innerText = hms(currentTime);
     }
-    wavesurfer.on("seek", function () {
+    wavesurfer.on("seek", () => {
       set_current_time();
     });
-    wavesurfer.on("audioprocess", function () {
+    wavesurfer.on("audioprocess", () => {
       if (wavesurfer.isPlaying()) {
         set_current_time();
       }
@@ -153,64 +144,57 @@ function init_wavesurfer() {
       load_audio(data_audio);
     });
   }
+  // Regions
 
-  {
-    // Regions
-
-    wavesurfer.on("ready", function () {
-      wavesurfer.enableDragSelection({
-        color: randomColor(0.1),
-      });
-
-      const totalTime = wavesurfer.getDuration();
-      document.getElementById("time-total").innerText = `${totalTime.toFixed(
-        1,
-      )}`;
-      document.getElementById("time-total-hms").innerText = hms(totalTime);
+  wavesurfer.on("ready", () => {
+    wavesurfer.enableDragSelection({
+      color: randomColor(0.1),
     });
-    wavesurfer.on("region-click", function (region, e) {
-      e.stopPropagation();
-      // Play on click, loop on shift click
-      e.shiftKey ? region.playLoop() : region.play();
-    });
-    wavesurfer.on("region-click", editAnnotation);
-    wavesurfer.on("region-updated", saveRegions);
-    wavesurfer.on("region-removed", saveRegions);
 
-    wavesurfer.on("region-play", function (region) {
-      wavesurfer.play(region.start, region.end);
-    });
-  }
+    const totalTime = wavesurfer.getDuration();
+    document.getElementById("time-total").innerText = `${totalTime.toFixed(1)}`;
+    document.getElementById("time-total-hms").innerText = hms(totalTime);
+  });
+  wavesurfer.on("region-click", (region, e) => {
+    e.stopPropagation();
+    // Play on click, loop on shift click
+    e.shiftKey ? region.playLoop() : region.play();
+  });
+  wavesurfer.on("region-click", editAnnotation);
+  wavesurfer.on("region-updated", saveRegions);
+  wavesurfer.on("region-removed", saveRegions);
+
+  wavesurfer.on("region-play", (region) => {
+    wavesurfer.play(region.start, region.end);
+  });
 
   {
     // play
 
-    let playButton = document.querySelector("#play");
-    let pauseButton = document.querySelector("#pause");
-    wavesurfer.on("play", function () {
+    const playButton = document.querySelector("#play");
+    const pauseButton = document.querySelector("#pause");
+    wavesurfer.on("play", () => {
       playButton.style.display = "none";
       pauseButton.style.display = "";
     });
-    wavesurfer.on("pause", function () {
+    wavesurfer.on("pause", () => {
       playButton.style.display = "";
       pauseButton.style.display = "none";
     });
 
-    document
-      .querySelector('[data-action="delete-region"]')
-      .addEventListener("click", function () {
-        let form = document.forms.edit;
-        let regionId = form.dataset.region;
-        if (regionId) {
-          wavesurfer.regions.list[regionId].remove();
-          form.reset();
-        }
-      });
+    document.querySelector('[data-action="delete-region"]').addEventListener("click", () => {
+      const form = document.forms.edit;
+      const regionId = form.dataset.region;
+      if (regionId) {
+        wavesurfer.regions.list[regionId].remove();
+        form.reset();
+      }
+    });
   }
 
   {
     // Zoom slider
-    let slider = document.querySelector("#slider");
+    const slider = document.querySelector("#slider");
 
     slider.value = wavesurfer.params.minPxPerSec;
     slider.min = wavesurfer.params.minPxPerSec;
@@ -228,7 +212,7 @@ function init_wavesurfer() {
   {
     // Volume
     const volumeInput = document.querySelector("#volume");
-    const onChangeVolume = function (e) {
+    const onChangeVolume = (e) => {
       wavesurfer.setVolume(e.target.value);
     };
     volumeInput.addEventListener("input", onChangeVolume);
@@ -243,18 +227,12 @@ function init_wavesurfer() {
       volumeInput.value = 1;
     });
   }
-
-  {
-    ["start", "end"].forEach((label) => {
-      document.getElementById(label).addEventListener("change", (e) => {
-        document.getElementById(`${label}-hms`).value = hms(e.target.value);
-      });
-      document
-        .getElementById(`${label}-setnow`)
-        .addEventListener("click", (e) => {
-          document.getElementById(`${label}`).value =
-            document.getElementById(`time-current`).innerText;
-        });
+  for (const label of ["start", "end"]) {
+    document.getElementById(label).addEventListener("change", (e) => {
+      document.getElementById(`${label}-hms`).value = hms(e.target.value);
+    });
+    document.getElementById(`${label}-setnow`).addEventListener("click", (e) => {
+      document.getElementById(`${label}`).value = document.getElementById("time-current").innerText;
     });
   }
 
@@ -295,11 +273,8 @@ function set_annotation_items(annotation_item_names) {
 
   let row_idx = 0;
   for (let j = 0; j < annotation_item_names.length; ++j) {
-    const item_name = annotation_item_names[j].replace(
-      /[&"<>]/g,
-      (e) => escape_html_map[e],
-    );
-    if (j % 2 == 0) {
+    const item_name = annotation_item_names[j].replace(/[&"<>]/g, (e) => escape_html_map[e]);
+    if (j % 2 === 0) {
       area.innerHTML += `<div class="form-group row" id="annotation_item_row_${row_idx}">
                 <div class="col" id="annotation_item_${j}">
                 </div>
@@ -318,21 +293,15 @@ function set_annotation_items(annotation_item_names) {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-  localforage.getItem(
-    key_annotation_item_names,
-    (err, annotation_item_names) => {
-      if (annotation_item_names === null) {
-        annotation_item_names = default_annotation_item_names;
-        localforage.setItem(
-          key_annotation_item_names,
-          annotation_item_names,
-          () => {},
-        );
-      }
-      set_annotation_items(annotation_item_names);
-    },
-  );
+document.addEventListener("DOMContentLoaded", () => {
+  localforage.getItem(key_annotation_item_names, (err, annotation_item_names) => {
+    let target = annotation_item_names;
+    if (annotation_item_names === null) {
+      target = default_annotation_item_names;
+      localforage.setItem(key_annotation_item_names, target, () => {});
+    }
+    set_annotation_items(target);
+  });
 
   init_wavesurfer();
 
@@ -368,14 +337,8 @@ document.addEventListener("DOMContentLoaded", function () {
       clear_annotations();
       const duration = wavesurfer.getDuration();
       const unit_second = 0.01;
-      const num_subranges = parseInt(duration / unit_second);
-      loadRegions(
-        extractRegions(
-          wavesurfer.backend.getPeaks(num_subranges),
-          duration,
-          unit_second,
-        ),
-      );
+      const num_subranges = Number.parseInt(duration / unit_second);
+      loadRegions(extractRegions(wavesurfer.backend.getPeaks(num_subranges), duration, unit_second));
       saveRegions();
     });
   }
@@ -390,10 +353,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const editor = new JSONEditor(container, options);
     modal.addEventListener("click", () => {
       localforage.getItem(key_meta, (_, data) => {
+        target = data;
         if (data === null) {
-          data = {};
+          target = {};
         }
-        editor.set(data);
+        editor.set(target);
       });
     });
 
@@ -420,16 +384,15 @@ document.addEventListener("DOMContentLoaded", function () {
   {
     // config editor
     const modal = document.querySelector("#configModal");
-    modal.addEventListener("show.bs.modal", function (e) {
-      if (document.forms.edit.style.opacity != 0) {
+    modal.addEventListener("show.bs.modal", (e) => {
+      if (document.forms.edit.style.opacity !== 0) {
         alert("Close form");
         e.preventDefault();
         e.stopImmediatePropagation();
         return false;
       }
 
-      document.getElementById("default_annotation_item_names").innerText =
-        default_annotation_item_names;
+      document.getElementById("default_annotation_item_names").innerText = default_annotation_item_names;
 
       localforage.getItem(key_annotation_item_names, (_, data) => {
         document.getElementById("config_annotation_item_names").value = data;
@@ -439,12 +402,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const modal_save = document.querySelector("#configModal_save");
     modal_save.addEventListener("click", () => {
       const new_val = [];
-      document
-        .getElementById("config_annotation_item_names")
-        .value.split(",")
-        .forEach((v) => {
-          new_val.push(v.replace(/^\s*(.*?)\s*$/, "$1"));
-        });
+      for (const v of document.getElementById("config_annotation_item_names").value.split(",")) {
+        new_val.push(v.replace(/^\s*(.*?)\s*$/, "$1"));
+      }
       set_annotation_items(new_val);
       try {
         localforage
@@ -467,14 +427,14 @@ document.addEventListener("DOMContentLoaded", function () {
     // Disable D&D
     window.addEventListener(
       "dragover",
-      function (ev) {
+      (ev) => {
         ev.preventDefault();
       },
       false,
     );
     window.addEventListener(
       "drop",
-      function (ev) {
+      (ev) => {
         ev.preventDefault();
         ev.stopPropagation();
       },
@@ -482,13 +442,11 @@ document.addEventListener("DOMContentLoaded", function () {
     );
 
     // cf: https://r17n.page/2020/10/24/html-js-drag-and-drop-file/
-    document
-      .querySelectorAll("#file-select-button, #drag-and-drop-area")
-      .forEach((ele) => {
-        ele.addEventListener("click", () => {
-          document.getElementById("file-select-input").click();
-        });
+    for (const ele of document.querySelectorAll("#file-select-button, #drag-and-drop-area")) {
+      ele.addEventListener("click", () => {
+        document.getElementById("file-select-input").click();
       });
+    }
 
     const dragAndDropArea = document.getElementById("drag-and-drop-area");
 
@@ -509,11 +467,9 @@ document.addEventListener("DOMContentLoaded", function () {
       load_files(files);
     });
 
-    document
-      .getElementById("file-select-input")
-      .addEventListener("change", (e) => {
-        load_files(e.target.files);
-      });
+    document.getElementById("file-select-input").addEventListener("change", (e) => {
+      load_files(e.target.files);
+    });
   }
 
   document.getElementById("download_button").addEventListener("click", () => {
@@ -537,15 +493,16 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
       localforage.getItem(key_meta, (err, data_meta) => {
+        let target = data_meta;
         if (data_meta === null) {
-          data_meta = {};
+          target = {};
         }
 
         const out_data = {};
         out_data[item_name_annotation] = data_annotation;
-        out_data[item_name_meta] = data_meta;
+        out_data[item_name_meta] = target;
 
-        const out = JSON.stringify(out_data, undefined, 4) + "\n";
+        const out = `${JSON.stringify(out_data, undefined, 4)}\n`;
         const url = URL.createObjectURL(
           new Blob([out], {
             type: "application/json",
@@ -588,7 +545,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function saveRegions() {
-  const mydata = Object.keys(wavesurfer.regions.list).map(function (id) {
+  const mydata = Object.keys(wavesurfer.regions.list).map((id) => {
     const region = wavesurfer.regions.list[id];
     return {
       start: region.start,
@@ -607,23 +564,14 @@ function saveRegions() {
 }
 
 function loadRegions(regions) {
-  regions.forEach(function (region) {
+  for (const region of regions) {
     region.color = randomColor(0.1);
     wavesurfer.addRegion(region);
-  });
+  }
 }
 
 function randomColor(alpha) {
-  return (
-    "rgba(" +
-    [
-      ~~(Math.random() * 255),
-      ~~(Math.random() * 255),
-      ~~(Math.random() * 255),
-      alpha || 1,
-    ] +
-    ")"
-  );
+  return `rgba(${[~~(Math.random() * 255), ~~(Math.random() * 255), ~~(Math.random() * 255), alpha || 1]})`;
 }
 
 function save_a_region(region) {
@@ -632,7 +580,7 @@ function save_a_region(region) {
   for (const [key, el] of Object.entries(form.elements)) {
     if (key.startsWith("vals__")) {
       let v = el.value;
-      if (key != "vals__memo") {
+      if (key !== "vals__memo") {
         // Clean blanks and line breaks
         v = v.replace(/^\s+|\s+$|\n/g, "");
       }
@@ -648,9 +596,9 @@ function save_a_region(region) {
   form.style.opacity = 0;
 }
 
-var old_region = null;
+let old_region = null;
 function editAnnotation(region) {
-  if (old_region !== null && region != old_region) {
+  if (old_region !== null && region !== old_region) {
     save_a_region(old_region);
   }
   old_region = region;
@@ -669,11 +617,11 @@ function editAnnotation(region) {
     }
   }
 
-  form.onsubmit = function (e) {
+  form.onsubmit = (e) => {
     e.preventDefault();
     save_a_region(region);
   };
-  form.onreset = function () {
+  form.onreset = () => {
     form.style.opacity = 0;
     form.dataset.region = null;
   };
@@ -692,8 +640,8 @@ function extractRegions(peaks, duration, unit_second) {
   }
 
   const spans = [];
-  sound_on_indices.forEach(function (val) {
-    if (spans.length == 0 || val - spans[spans.length - 1].end > max_interval) {
+  for (const val of sound_on_indices) {
+    if (spans.length === 0 || val - spans[spans.length - 1].end > max_interval) {
       spans.push({
         start: val,
         end: val + 1,
@@ -701,12 +649,10 @@ function extractRegions(peaks, duration, unit_second) {
     } else {
       spans[spans.length - 1].end = val;
     }
-  });
+  }
 
-  return spans.map(function (reg) {
-    return {
-      start: Math.round(reg.start * unit_second * 100) / 100,
-      end: Math.round(reg.end * unit_second * 100) / 100,
-    };
-  });
+  return spans.map((reg) => ({
+    start: Math.round(reg.start * unit_second * 100) / 100,
+    end: Math.round(reg.end * unit_second * 100) / 100,
+  }));
 }
