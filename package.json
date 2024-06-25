@@ -9,7 +9,7 @@
     "preinstall": "npx only-allow pnpm",
     "format": "biome format --write ./src/js ./src/css ./src/*.html",
     "test:biome": "biome check ./src/js ./src/css ./src/*.html",
-    "test:md": "npx markdownlint *.md",
+    "test:md": "markdownlint *.md",
     "test": "run-s test:biome test:md",
     "build": "bash sync_modules.sh"
   },
