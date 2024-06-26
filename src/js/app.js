@@ -9,6 +9,7 @@ var wavesurfer;
 const key_audio = "key_audio_0";
 const key_annotation = "key_annotation_0";
 const key_meta = "key_meta_0";
+const var_name_spansIndex = "spansIndex";
 const item_name_annotation = "annotation";
 const item_name_meta = "meta";
 const key_annotation_item_names = "key_annotation_item_names";
@@ -145,6 +146,72 @@ function init_wavesurfer() {
     });
   }
   // Regions
+  {
+    // span buttons and onclicks
+    let dummyBackSpanButton = document.querySelector("#back_span_play");
+
+    let dummyFwdSpanButton = document.querySelector("#fwd_span_play");
+
+    let prevSpanButton = document.querySelector("#prev_span_play");
+
+    let nextSpanButton = document.querySelector("#next_span_play");
+
+    dummyBackSpanButton.addEventListener("click", assume_play_first_span);
+    dummyFwdSpanButton.addEventListener("click", assume_play_first_span);
+    prevSpanButton.addEventListener("click", psb);
+    nextSpanButton.addEventListener("click", nsb);
+
+    function assume_play_first_span() {
+      playNextPrev("first");
+      dummyFwdSpanButton.style.display = "none";
+      nextSpanButton.style.display = "";
+      dummyBackSpanButton.style.display = "none";
+      prevSpanButton.style.display = "";
+    }
+    function psb() {
+      playNextPrev("previous");
+    }
+    function nsb() {
+      playNextPrev("next");
+    }
+  }
+
+  function playNextPrev(buttonType) {
+    localforage.getItem(key_annotation, (err, data_annotation) => {
+      if (data_annotation === null) {
+        return;
+      }
+      for (i = 0; i < data_annotation.length; i++) {
+        for (n = 1; n < i; n++) {
+          if (data_annotation[n].start > data_annotation[i].start) {
+            const temp = data_annotation[i];
+            data_annotation[i] = data_annotation[n];
+            data_annotation[n] = temp;
+          }
+        }
+      }
+
+      localforage.getItem(var_name_spansIndex, (err, index) => {
+        if (buttonType === "first") {
+          index = 0;
+        }
+        if (buttonType === "previous") {
+          if (index == 0) {
+            index = data_annotation.length - 1;
+          } else index = index - 1;
+        }
+        if (buttonType === "next") {
+          if (index >= data_annotation.length - 1) {
+            index = 0;
+          } else if (index < data_annotation.length - 1) index++;
+        }
+        const start = data_annotation[index].start;
+        const end = data_annotation[index].end;
+        wavesurfer.play(start, end);
+        localforage.setItem(var_name_spansIndex, index);
+      });
+    });
+  }
 
   wavesurfer.on("ready", () => {
     wavesurfer.enableDragSelection({
