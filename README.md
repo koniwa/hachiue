@@ -5,6 +5,9 @@
 [![Typos](https://github.com/koniwa/hachiue/actions/workflows/typos.yml/badge.svg)](https://github.com/koniwa/hachiue/actions/workflows/typos.yml)
 [![CodeQL](https://github.com/koniwa/hachiue/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/koniwa/hachiue/actions/workflows/codeql-analysis.yml)
 
+**This repository is currently in maintenance mode.  
+No new features will be added for the foreseeable future.**
+
 This tool is designed to work using only the standard functions of web browsers,
 and does not exchange data with external servers.
 
