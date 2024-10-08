@@ -7,10 +7,11 @@
   "directories": {},
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "format": "biome format --write ./src/js ./src/css ./src/*.html",
-    "test:biome": "biome check ./src/js ./src/css ./src/*.html",
+    "format": "biome format --write ./src/js ./src/css ./src/*.html .*.json *.json",
+    "test:biome_lint": "biome check ./src/js ./src/css ./src/*.html",
+    "test:biome_format": "biome format ./src/js ./src/css ./src/*.html .*.json *.json",
     "test:md": "markdownlint *.md",
-    "test": "run-s test:biome test:md",
+    "test": "run-s test:biome_lint test:biome_format test:md",
     "build": "bash sync_modules.sh"
   },
   "repository": {
