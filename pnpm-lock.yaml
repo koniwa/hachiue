@@ -21,8 +21,8 @@ importers:
         specifier: ^1.10.0
         version: 1.10.0
       wavesurfer.js:
-        specifier: ^6.6.4
-        version: 6.6.4
+        specifier: ^7.8.8
+        version: 7.8.8
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -752,8 +752,8 @@ packages:
   vanilla-picker@2.12.3:
     resolution: {integrity: sha512-qVkT1E7yMbUsB2mmJNFmaXMWE2hF8ffqzMMwe9zdAikd8u2VfnsVY2HQcOUi2F38bgbxzlJBEdS1UUhOXdF9GQ==}
 
-  wavesurfer.js@6.6.4:
-    resolution: {integrity: sha512-nBbc0pD/3FdClxKUKL1UW2V9AJPL+JOjC8T6/YF9/FCAn4uo+H6Y8VBkXo9UJXIHoBewoc7iXj3tPeL0UCJhjA==}
+  wavesurfer.js@7.8.8:
+    resolution: {integrity: sha512-FNiJ6RCAu4TijRcwdaqlN19+Y+Hhqb7Nfo2P4LudzhNnQRMKvF3QmXd9+KHlQZrSjexeK3WbY4COsxgGJkxMag==}
 
   which-boxed-primitive@1.0.2:
     resolution: {integrity: sha512-bwZdv0AKLpplFY2KZRX6TvyuN7ojjr7lwkg6ml0roIy9YeuSr7JS372qlNW18UQYzgYK9ziGcerWqZOmEn9VNg==}
@@ -1590,7 +1590,7 @@ snapshots:
     dependencies:
       '@sphinxxxx/color-conversion': 2.2.2
 
-  wavesurfer.js@6.6.4: {}
+  wavesurfer.js@7.8.8: {}
 
   which-boxed-primitive@1.0.2:
     dependencies:
