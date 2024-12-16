@@ -242,8 +242,8 @@ packages:
     resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
     engines: {node: '>=0.10.0'}
 
-  jsonrepair@3.11.0:
-    resolution: {integrity: sha512-9lDyqN9l16HezbNpK5+J4reACtdm5OOcnQZkUTGfSa8BaD6qkctV8xQHYUSYugdCVSYP2q+eORq3o8MBaLpIsA==}
+  jsonrepair@3.11.1:
+    resolution: {integrity: sha512-9jej0NdRnXXv/n6oYxKbNhrKyPXM6SOrWEmNEpl5S+JpqzrmkxcX7gJCA+GMkgJiWd8KtH6G60+0gIlhZ4dMKQ==}
     hasBin: true
 
   lie@3.1.1:
@@ -579,14 +579,14 @@ snapshots:
       javascript-natural-sort: 0.7.1
       jmespath: 0.16.0
       json-source-map: 0.6.1
-      jsonrepair: 3.11.0
+      jsonrepair: 3.11.1
       mobius1-selectr: 2.4.13
       picomodal: 3.0.0
       vanilla-picker: 2.12.3
 
   jsonpointer@5.0.1: {}
 
-  jsonrepair@3.11.0: {}
+  jsonrepair@3.11.1: {}
 
   lie@3.1.1:
     dependencies:
