@@ -27,14 +27,14 @@
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "jsoneditor": "^10.1.1",
+    "jsoneditor": "^10.1.2",
     "localforage": "^1.10.0",
     "wavesurfer.js": "^6.6.4"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "markdownlint-cli": "^0.43.0",
-    "npm-run-all2": "^7.0.1"
+    "npm-run-all2": "^7.0.2"
   },
   "engines": {
     "npm": "Use pnpm instead of npm!"
