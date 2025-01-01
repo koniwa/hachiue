@@ -15,8 +15,8 @@ importers:
         specifier: ^1.11.3
         version: 1.11.3
       jsoneditor:
-        specifier: ^10.1.1
-        version: 10.1.1
+        specifier: ^10.1.2
+        version: 10.1.2
       localforage:
         specifier: ^1.10.0
         version: 1.10.0
@@ -235,8 +235,8 @@ packages:
   jsonc-parser@3.3.1:
     resolution: {integrity: sha512-HUgH65KyejrUFPvHFPbqOY0rsFip3Bo5wb4ngvdi1EpCYWUQDC5V+Y7mZws+DLkr4M//zQJoanu1SP+87Dv1oQ==}
 
-  jsoneditor@10.1.1:
-    resolution: {integrity: sha512-szrZH1J1cP2kQuVZQq3A2s0plNw4C0Gu/zO5qBAFviSpu9BzEeY0qZyUy65KdAfPXkKbaS4fvMoqwvABPRGmZg==}
+  jsoneditor@10.1.2:
+    resolution: {integrity: sha512-6yUC6cEPrPGS3wNEuzJUbCE1sziwIITs2vRko0L2LnhKokJtPZErHKU2nOYp6K4N8FxFXXXe1zy9lxh/tGzHwg==}
 
   jsonpointer@5.0.1:
     resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
@@ -297,9 +297,6 @@ packages:
   minipass@7.1.2:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
-
-  mobius1-selectr@2.4.13:
-    resolution: {integrity: sha512-Mk9qDrvU44UUL0EBhbAA1phfQZ7aMZPjwtL7wkpiBzGh8dETGqfsh50mWoX9EkjDlkONlErWXArHCKfoxVg0Bw==}
 
   npm-normalize-package-bin@4.0.0:
     resolution: {integrity: sha512-TZKxPvItzai9kN9H/TkmCtx/ZN/hvr3vUycjlfmH0ootY9yFBzNOpiXAdIn1Iteqsvk4lQn6B5PTrt+n6h8k/w==}
@@ -572,7 +569,7 @@ snapshots:
 
   jsonc-parser@3.3.1: {}
 
-  jsoneditor@10.1.1:
+  jsoneditor@10.1.2:
     dependencies:
       ace-builds: 1.36.5
       ajv: 6.12.6
@@ -580,7 +577,6 @@ snapshots:
       jmespath: 0.16.0
       json-source-map: 0.6.1
       jsonrepair: 3.11.1
-      mobius1-selectr: 2.4.13
       picomodal: 3.0.0
       vanilla-picker: 2.12.3
 
@@ -646,8 +642,6 @@ snapshots:
   minimist@1.2.8: {}
 
   minipass@7.1.2: {}
-
-  mobius1-selectr@2.4.13: {}
 
   npm-normalize-package-bin@4.0.0: {}
 
