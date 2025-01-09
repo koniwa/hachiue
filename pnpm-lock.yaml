@@ -99,8 +99,8 @@ packages:
   '@sphinxxxx/color-conversion@2.2.2':
     resolution: {integrity: sha512-XExJS3cLqgrmNBIP3bBw6+1oQ1ksGjFh0+oClDKFYpCCqx/hlqwWO5KO/S63fzUo67SxI9dMrF0y5T/Ey7h8Zw==}
 
-  ace-builds@1.37.1:
-    resolution: {integrity: sha512-6/jxFucA1z1C3hgLlVkTE5/znZ+iYvD301vfwtybiMc3k76IDykliCD0xh/eYZMJUfsJtaOQHZ2AJO5ey0PHWw==}
+  ace-builds@1.37.3:
+    resolution: {integrity: sha512-LXMNR57LGyUaJZoAXqVuy6x/ipQvj62iKUHv0DlOb57DNRiV3ZIvYNTVeBHCkUeQAc3BBmyLWC2uvMixSbhj9Q==}
 
   ajv@6.12.6:
     resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
@@ -462,7 +462,7 @@ snapshots:
 
   '@sphinxxxx/color-conversion@2.2.2': {}
 
-  ace-builds@1.37.1: {}
+  ace-builds@1.37.3: {}
 
   ajv@6.12.6:
     dependencies:
@@ -571,7 +571,7 @@ snapshots:
 
   jsoneditor@10.1.2:
     dependencies:
-      ace-builds: 1.37.1
+      ace-builds: 1.37.3
       ajv: 6.12.6
       javascript-natural-sort: 0.7.1
       jmespath: 0.16.0
